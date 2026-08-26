@@ -1,1244 +1,562 @@
-\# 🩺 Network Doctor
+# 🩺 Network Doctor
 
+**Network Doctor** is a modern Windows network diagnostics and troubleshooting application built with **Flutter**.
 
+It brings essential network monitoring, diagnostic, discovery, and analysis tools together in one desktop application.
 
-\*\*Network Doctor\*\* is a Windows network diagnostics and troubleshooting application built with \*\*Flutter\*\*.
+> 🚧 **Status: Active Development**
 
+---
 
+## 📸 Screenshots
 
-It provides a modern, easy-to-use interface for monitoring network connectivity, diagnosing common network problems, inspecting network information, and performing a variety of network troubleshooting and analysis tasks.
+### Dashboard
 
+![Network Doctor Dashboard](screenshots/dashboard.png)
 
+### Network Health
 
-> \*\*Status:\*\* Active Development 🚧
+![Network Health](screenshots/network_health.png)
 
+### Network Information
 
+![Network Information](screenshots/network_info.png)
 
-\---
+### Network Diagnostics
 
+![Network Diagnostics](screenshots/network_diagnostic.png)
 
+### Network Tools
 
-\## 📸 Overview
+![Network Tools](screenshots/network_tools.png)
 
+---
 
+## 🧰 Network Tools
 
-Network Doctor brings essential network troubleshooting tools together in a single desktop application.
+### 📡 Ping Test
 
+Test connectivity and latency to network hosts.
 
+![Ping Test](screenshots/ping_test.png)
 
-It is designed for:
+---
 
+### 🔎 DNS Lookup
 
+Investigate DNS resolution and domain information.
 
-\* Network administrators
+![DNS Lookup](screenshots/DNSLOOK.png)
 
-\* IT support technicians
+---
 
-\* System administrators
+### 🛣️ Traceroute
 
-\* Developers
+Trace the network path between your computer and a destination.
 
-\* Students learning networking
+![Traceroute](screenshots/traceroute.png)
 
-\* Anyone troubleshooting Windows network connectivity
+---
 
+### 🔌 Port Scanner
 
+Check whether network ports are reachable on a target host.
 
-\---
+![Port Scanner](screenshots/Port_scanner.png)
 
+> ⚠️ Only scan systems and networks that you own or have permission to test.
 
+---
 
-\## ✨ Features
+### 🖥️ Device Scanner
 
+Discover devices on the local network.
 
+![Device Scanner](screenshots/device_scanner.png)
 
-\### 🌐 Network Information
+---
 
+### 🚀 Speed Test
 
+Test network connection performance.
 
-View important information about your current network connection, including:
+![Speed Test](screenshots/speed_test.png)
 
+---
 
+### 📊 Traffic Monitor
 
-\* Network interface
+Monitor network traffic and activity.
 
-\* IPv4 address
+![Traffic Monitor](screenshots/network_traffic.png)
 
-\* Subnet mask
+---
 
-\* Default gateway
+## 🌐 Network Information
 
-\* DNS server
+Network Doctor can display:
 
-\* MAC address
-
-\* DHCP status
-
-\* Ethernet connection information
-
-\* Wi-Fi connection information
-
-
-
-\---
-
-
-
-\### 🩺 Connectivity Diagnostics
-
-
-
-Run automated connectivity tests to help identify network problems.
-
-
-
-Network Doctor can test:
-
-
-
-\* Default gateway connectivity
-
-\* Internet connectivity
-
-\* DNS functionality
-
-\* Network health
-
-\* Basic connectivity status
-
-
-
-The diagnostic system can help determine whether a problem is likely to be related to:
-
-
+* Network interface
+* IPv4 address
+* Subnet mask
+* Default gateway
+* DNS server
+* MAC address
+* DHCP status
+* Ethernet information
+* Wi-Fi information
+
+---
+
+## 🩺 Connectivity Diagnostics
+
+Network Doctor can perform automated connectivity checks including:
+
+* Default gateway connectivity
+* Internet connectivity
+* DNS functionality
+* Network health
+* Basic connectivity status
+
+The diagnostic process helps identify where a connection problem may be occurring:
 
 ```text
-
 Computer
-
-&#x20;  ↓
-
+   │
+   ▼
 Network Adapter
-
-&#x20;  ↓
-
-Gateway
-
-&#x20;  ↓
-
+   │
+   ▼
+Default Gateway
+   │
+   ▼
 Internet
-
-&#x20;  ↓
-
+   │
+   ▼
 DNS
-
 ```
 
+---
 
+## 🌍 Additional Network Analysis
 
-\---
+Network Doctor also includes tools for:
 
+### WHOIS Lookup
 
+Investigate domain registration and related information.
 
-\### 📡 Ping Test
+### IP Geolocation
 
+Retrieve geographic and network information associated with an IP address.
 
-
-Test connectivity and response times to network hosts.
-
-
-
-Features include:
-
-
-
-\* Host/IP ping testing
-
-\* Response time
-
-\* Packet success/failure
-
-\* Connectivity status
-
-\* Basic latency analysis
-
-
-
-Useful for troubleshooting:
-
-
-
-\* Network connectivity
-
-\* High latency
-
-\* Unreachable hosts
-
-\* Gateway problems
-
-\* Internet connectivity
-
-
-
-\---
-
-
-
-\### 🔎 DNS Lookup
-
-
-
-Perform DNS lookups to investigate domain name resolution.
-
-
-
-Useful for identifying:
-
-
-
-\* DNS resolution problems
-
-\* Domain records
-
-\* DNS server behavior
-
-\* Connectivity issues caused by DNS
-
-
-
-\---
-
-
-
-\### 🛣️ Traceroute
-
-
-
-Trace the path packets take from your computer to a destination.
-
-
-
-Network Doctor uses Windows `tracert` functionality to inspect network hops.
-
-
-
-Useful for investigating:
-
-
-
-\* Routing problems
-
-\* High-latency hops
-
-\* Unreachable destinations
-
-\* Network paths
-
-\* ISP routing issues
-
-
-
-\---
-
-
-
-\### 🔌 Port Scanner
-
-
-
-Check network ports on a target host.
-
-
-
-Useful for:
-
-
-
-\* Network troubleshooting
-
-\* Service discovery
-
-\* Checking whether services are reachable
-
-\* Basic network analysis
-
-
-
-> Use port scanning only on systems and networks you own or have permission to test.
-
-
-
-\---
-
-
-
-\### 🖥️ Network Device Scanner
-
-
-
-Discover devices available on the local network.
-
-
-
-The device scanner can help identify:
-
-
-
-\* Network devices
-
-\* IP addresses
-
-\* Local hosts
-
-\* Devices connected to the network
-
-
-
-\---
-
-
-
-\### 🚀 Speed Test
-
-
-
-Measure network performance and provide information about connection speed.
-
-
-
-Useful for:
-
-
-
-\* Internet connection testing
-
-\* Performance troubleshooting
-
-\* Comparing network conditions
-
-\* Identifying slow connections
-
-
-
-\---
-
-
-
-\### 📊 Traffic Monitor
-
-
-
-Monitor network traffic and activity in real time.
-
-
-
-The traffic monitoring functionality is designed to help users understand network usage and activity on their Windows machine.
-
-
-
-\---
-
-
-
-\### 🌍 IP Geolocation
-
-
-
-Look up geographic information associated with an IP address.
-
-
-
-Information can include:
-
-
-
-\* Country
-
-\* Region
-
-\* City
-
-\* Network information
-
-\* IP-related geographic data
-
-
-
-\---
-
-
-
-\### 🏢 ASN Lookup
-
-
+### ASN Lookup
 
 Investigate Autonomous System information associated with an IP address or network.
 
+---
 
+## ⚙️ Features
 
-Useful for understanding:
-
-
-
-\* Autonomous System Numbers
-
-\* Network ownership
-
-\* Internet service providers
-
-\* Network infrastructure
-
-
-
-\---
-
-
-
-\### 🔍 WHOIS Lookup
-
-
-
-Perform WHOIS/RDAP-based domain information lookups.
-
-
-
-Useful for investigating:
-
-
-
-\* Domain registration information
-
-\* Domain status
-
-\* Registrar information
-
-\* Registration-related details
-
-
-
-\---
-
-
-
-\## 🧰 Tools
-
-
-
-Network Doctor currently includes the following tools:
-
-
-
-| Tool                   | Purpose                               |
-
+| Feature                | Description                           |
 | ---------------------- | ------------------------------------- |
-
 | 🌐 Network Information | View local network configuration      |
-
-| 🩺 Diagnostics         | Diagnose connectivity problems        |
-
-| 📡 Ping                | Test host connectivity and latency    |
-
+| 🩺 Network Diagnostics | Diagnose connectivity problems        |
+| 📡 Ping                | Test connectivity and latency         |
 | 🔎 DNS Lookup          | Investigate DNS resolution            |
-
-| 🛣️ Traceroute         | Analyze network routes                |
-
+| 🛣️ Traceroute         | Analyze network paths                 |
 | 🔌 Port Scanner        | Check network ports                   |
-
-| 🖥️ Device Scanner     | Discover local network devices        |
-
-| 🚀 Speed Test          | Test network performance              |
-
+| 🖥️ Device Scanner     | Discover local devices                |
+| 🚀 Speed Test          | Test connection performance           |
 | 📊 Traffic Monitor     | Monitor network traffic               |
-
 | 🌍 IP Geolocation      | Investigate IP geographic information |
-
 | 🏢 ASN Lookup          | Investigate autonomous systems        |
-
 | 🔍 WHOIS Lookup        | Investigate domain information        |
 
+---
 
+## 🖥️ Platform
 
-\---
+Network Doctor currently targets:
 
+**Windows Desktop**
 
+Support for additional platforms may be considered in future versions.
 
-\## 🖥️ Platform Support
+---
 
-
-
-\### Windows
-
-
-
-Network Doctor is currently focused on \*\*Windows Desktop\*\*.
-
-
-
-The application uses Windows networking capabilities for several diagnostic functions.
-
-
-
-> Other platforms may be supported in the future.
-
-
-
-\---
-
-
-
-\## 🛠️ Technology Stack
-
-
+## 🛠️ Technology Stack
 
 Network Doctor is built using:
 
+* **Flutter**
+* **Dart**
+* **Provider**
+* **Windows Desktop**
+* REST/RDAP-based network services
+* Windows networking utilities
 
+---
 
-\* \*\*Flutter\*\*
+## 🏗️ Architecture
 
-\* \*\*Dart\*\*
-
-\* \*\*Provider\*\*
-
-\* \*\*Windows Desktop\*\*
-
-\* REST/RDAP-based network services
-
-\* Windows networking utilities
-
-
-
-\### Architecture
-
-
-
-The project follows a modular structure separating models, providers, services, screens, and reusable widgets.
-
-
+The application uses a modular architecture separating UI, state management, models, and network services.
 
 ```text
-
 lib/
-
 ├── models/
-
 ├── providers/
-
 ├── screens/
-
 │   └── tools/
-
 ├── services/
-
 ├── theme/
-
 ├── widgets/
-
 └── main.dart
-
 ```
 
+### Models
 
-
-\### Models
-
-
-
-Network-related data models include:
-
-
-
-\* `NetworkInfo`
-
-\* `PingResult`
-
-\* `DnsResult`
-
-\* `TracerouteResult`
-
-\* `PortScanResult`
-
-\* `NetworkDevice`
-
-\* `SpeedTestResult`
-
-\* `TrafficStats`
-
-\* `WhoisResult`
-
-\* `IpGeolocationResult`
-
-\* `AsnResult`
-
-\* `Diagnosis`
-
-
-
-\### Services
-
-
-
-The application contains dedicated services for network operations, including:
-
-
-
-\* `WindowsNetworkService`
-
-\* `PingService`
-
-\* `DnsService`
-
-\* `TracerouteService`
-
-\* `PortScannerService`
-
-\* `NetworkScannerService`
-
-\* `DeviceScannerService`
-
-\* `SpeedTestService`
-
-\* `TrafficMonitorService`
-
-\* `WhoisService`
-
-\* `IpGeolocationService`
-
-\* `AsnService`
-
-\* `DiagnosticService`
-
-
-
-\---
-
-
-
-\## 📁 Project Structure
-
-
+The project includes models such as:
 
 ```text
+NetworkInfo
+PingResult
+DnsResult
+TracerouteResult
+PortScanResult
+NetworkDevice
+SpeedTestResult
+TrafficStats
+WhoisResult
+IpGeolocationResult
+AsnResult
+Diagnosis
+```
 
+### Services
+
+Network operations are separated into dedicated services:
+
+```text
+WindowsNetworkService
+PingService
+DnsService
+TracerouteService
+PortScannerService
+NetworkScannerService
+DeviceScannerService
+SpeedTestService
+TrafficMonitorService
+WhoisService
+IpGeolocationService
+AsnService
+DiagnosticService
+```
+
+---
+
+## 📁 Project Structure
+
+```text
 network-doctor/
-
 │
-
 ├── assets/
-
 │   └── images/
-
 │
-
 ├── installer/
-
 │   ├── NetworkDoctor.iss
-
-│   ├── after\_installation.txt
-
+│   ├── after_installation.txt
 │   ├── information.txt
-
 │   └── license.txt
-
 │
-
+├── screenshots/
+│   ├── dashboard.png
+│   ├── network_health.png
+│   ├── network_info.png
+│   ├── network_diagnostic.png
+│   ├── network_tools.png
+│   ├── ping_test.png
+│   ├── DNSLOOK.png
+│   ├── traceroute.png
+│   ├── Port_scanner.png
+│   ├── device_scanner.png
+│   ├── speed_test.png
+│   ├── network_traffic.png
+│   └── app_settings.png
+│
 ├── lib/
-
-│   ├── models/
-
-│   ├── providers/
-
-│   ├── screens/
-
-│   │   └── tools/
-
-│   ├── services/
-
-│   ├── theme/
-
-│   ├── widgets/
-
-│   └── main.dart
-
-│
-
 ├── test/
-
-│
-
 ├── windows/
-
-│
-
-├── analysis\_options.yaml
-
 ├── pubspec.yaml
-
 ├── pubspec.lock
-
 ├── README.md
-
 └── .gitignore
-
 ```
 
+---
 
+## 🚀 Getting Started
 
-\---
+### Requirements
 
+Before building Network Doctor, install:
 
+* Windows 10 or later
+* Flutter SDK
+* Dart SDK
+* Visual Studio
+* Visual Studio Windows Desktop development tools
+* Git
 
-\## 🚀 Getting Started
-
-
-
-\### Prerequisites
-
-
-
-Before building Network Doctor from source, install:
-
-
-
-\* Windows 10 or later
-
-\* Flutter SDK
-
-\* Dart SDK
-
-\* Visual Studio with Windows Desktop development tools
-
-\* Git
-
-
-
-Verify Flutter:
-
-
+Check your Flutter installation:
 
 ```powershell
-
 flutter doctor
-
 ```
 
-
-
-Make sure Windows Desktop development is available:
-
-
+Check available devices:
 
 ```powershell
-
 flutter devices
-
 ```
 
+---
 
-
-You should see a Windows device.
-
-
-
-\---
-
-
-
-\## 📥 Clone the Repository
-
-
-
-Clone the project:
-
-
+## 📥 Clone the Repository
 
 ```powershell
-
 git clone https://github.com/KTZ56/network-doctor.git
-
 ```
 
-
-
-Enter the project directory:
-
-
+Enter the project:
 
 ```powershell
-
 cd network-doctor
-
 ```
 
+---
 
-
-\---
-
-
-
-\## 📦 Install Dependencies
-
-
-
-Run:
-
-
+## 📦 Install Dependencies
 
 ```powershell
-
 flutter pub get
-
 ```
 
+---
 
-
-\---
-
-
-
-\## ▶️ Run Network Doctor
-
-
-
-Run the application on Windows:
-
-
+## ▶️ Run Network Doctor
 
 ```powershell
-
 flutter run -d windows
-
 ```
 
+---
 
-
-\---
-
-
-
-\## 🏗️ Build the Windows Application
-
-
+## 🏗️ Build for Windows
 
 Create a release build:
 
-
-
 ```powershell
-
 flutter build windows --release
-
 ```
 
-
-
-The generated application can be found under:
-
-
+The application will be generated under:
 
 ```text
-
-build\\windows\\x64\\runner\\Release\\
-
+build\windows\x64\runner\Release\
 ```
 
+---
 
+## 📦 Windows Installer
 
-\---
-
-
-
-\## 📦 Build the Installer
-
-
-
-Network Doctor includes an Inno Setup installer configuration.
-
-
-
-The installer configuration is located at:
-
-
+The project includes an **Inno Setup** configuration:
 
 ```text
-
-installer\\NetworkDoctor.iss
-
+installer/NetworkDoctor.iss
 ```
 
+Open the file with Inno Setup to generate the Windows installer.
 
+Future releases will provide downloadable installers through the GitHub Releases page.
 
-Open the `.iss` file using \*\*Inno Setup\*\* and build the installer.
+---
 
+## 🧪 Development
 
-
-The generated installer can then be distributed through GitHub Releases.
-
-
-
-\---
-
-
-
-\## 🔐 Security \& Responsible Use
-
-
-
-Network Doctor contains tools that can interact with network hosts and services.
-
-
-
-Some features, including:
-
-
-
-\* Port scanning
-
-\* Device discovery
-
-\* Network scanning
-
-\* WHOIS/RDAP lookups
-
-
-
-should only be used on systems and networks where you have authorization.
-
-
-
-\### Responsible Use
-
-
-
-Do not use Network Doctor to:
-
-
-
-\* Scan networks without permission
-
-\* Access systems without authorization
-
-\* Circumvent security controls
-
-\* Disrupt network services
-
-\* Perform unauthorized security testing
-
-
-
-The project is intended for legitimate network administration, troubleshooting, education, and authorized testing.
-
-
-
-\---
-
-
-
-\## 🧪 Development
-
-
-
-Check the project for Dart analysis issues:
-
-
+Run static analysis:
 
 ```powershell
-
 flutter analyze
-
 ```
-
-
 
 Run tests:
 
-
-
 ```powershell
-
 flutter test
-
 ```
 
-
-
-Format Dart code:
-
-
+Format the source code:
 
 ```powershell
-
 dart format lib test
-
 ```
 
+---
 
+## 🔄 Updating the Project
 
-\---
-
-
-
-\## 🔄 Updating the Project
-
-
-
-To get the latest version:
-
-
+Get the latest changes:
 
 ```powershell
-
 git pull
-
 ```
-
-
 
 After making changes:
 
-
-
 ```powershell
-
 git add .
-
 git commit -m "Describe your changes"
-
 git push
-
 ```
 
+---
 
+## 🔐 Security & Responsible Use
 
-\---
+Network Doctor contains tools capable of interacting with network hosts and services.
 
+Features such as:
 
+* Port scanning
+* Device discovery
+* Network scanning
+* WHOIS/RDAP lookups
 
-\## 🗺️ Roadmap
+should only be used on systems and networks where you have authorization.
 
+Do not use Network Doctor to:
 
+* Access systems without permission
+* Scan unauthorized networks
+* Disrupt network services
+* Circumvent security controls
+* Perform unauthorized security testing
 
-Planned and potential improvements include:
+Network Doctor is intended for legitimate:
 
+* Network administration
+* IT troubleshooting
+* Education
+* Network analysis
+* Authorized security testing
 
+---
 
-\* \[ ] Improved network health scoring
+## 🗺️ Roadmap
 
-\* \[ ] More advanced diagnostics
+* [ ] Advanced network diagnostics
+* [ ] Improved network health scoring
+* [ ] Better Wi-Fi information
+* [ ] Advanced device discovery
+* [ ] Network history
+* [ ] Diagnostic report export
+* [ ] PDF/HTML reports
+* [ ] Advanced DNS analysis
+* [ ] Improved traffic monitoring
+* [ ] Automatic troubleshooting recommendations
+* [ ] GitHub Actions automated builds
+* [ ] GitHub Releases
+* [ ] Additional platform support
 
-\* \[ ] Better Wi-Fi information
+---
 
-\* \[ ] Advanced network device discovery
+## 🤝 Contributing
 
-\* \[ ] Improved traffic monitoring
+Contributions, bug reports, suggestions, and feature requests are welcome.
 
-\* \[ ] Network history and statistics
-
-\* \[ ] Export diagnostic reports
-
-\* \[ ] PDF/HTML diagnostic reports
-
-\* \[ ] Improved DNS analysis
-
-\* \[ ] More network protocol information
-
-\* \[ ] Automatic troubleshooting recommendations
-
-\* \[ ] Improved Windows installer
-
-\* \[ ] GitHub Actions automated builds
-
-\* \[ ] GitHub Releases
-
-\* \[ ] Additional platform support
-
-
-
-\---
-
-
-
-\## 🤝 Contributing
-
-
-
-Contributions, suggestions, bug reports, and feature requests are welcome.
-
-
-
-\### Development Workflow
-
-
-
-1\. Fork the repository.
-
-2\. Create a feature branch.
-
-
+Create a feature branch:
 
 ```powershell
-
 git checkout -b feature/my-feature
-
 ```
 
-
-
-3\. Make your changes.
-
-4\. Run analysis and tests.
-
-
+Make your changes, then run:
 
 ```powershell
-
 flutter analyze
-
 flutter test
-
 ```
 
-
-
-5\. Commit your changes.
-
-
+Commit:
 
 ```powershell
-
 git add .
-
 git commit -m "Add my feature"
-
 ```
 
-
-
-6\. Push your branch.
-
-
+Push:
 
 ```powershell
-
 git push origin feature/my-feature
-
 ```
 
+Then open a Pull Request on GitHub.
 
+---
 
-7\. Open a Pull Request.
+## 🐛 Reporting Issues
 
+When reporting an issue, include:
 
+* Windows version
+* Network connection type
+* Network Doctor version
+* Steps to reproduce
+* Expected behavior
+* Actual behavior
+* Error messages
+* Screenshots where applicable
 
-\---
+---
 
+## 📄 License
 
+Network Doctor is currently under active development.
 
-\## 🐛 Reporting Issues
+An open-source license will be added before the first official open-source release.
 
+---
 
+## 👨‍💻 Author
 
-If you discover a bug, please open a GitHub Issue and include:
-
-
-
-\* Windows version
-
-\* Network connection type
-
-\* Network Doctor version
-
-\* Steps to reproduce the problem
-
-\* Expected behavior
-
-\* Actual behavior
-
-\* Relevant error messages or screenshots
-
-
-
-\---
-
-
-
-\## 📄 License
-
-
-
-This project is currently under active development.
-
-
-
-A formal open-source license will be added before the project is distributed as an open-source release.
-
-
-
-\---
-
-
-
-\## 👨‍💻 Author
-
-
-
-\*\*James Jok\*\*
-
-
+**James Jok**
 
 GitHub:
-
-
-
 https://github.com/KTZ56
 
+---
 
-
-\---
-
-
-
-\## ⭐ Support the Project
-
-
+## ⭐ Support Network Doctor
 
 If you find Network Doctor useful:
 
+⭐ Star the repository
+🐛 Report bugs
+💡 Suggest features
+🔧 Contribute improvements
+📢 Share the project
 
+---
 
-\* ⭐ Star the repository
+## 📌 Project Status
 
-\* 🐛 Report bugs
+Network Doctor is an actively developing Windows network diagnostics and troubleshooting application.
 
-\* 💡 Suggest features
+The goal is to provide a practical, modern, and accessible toolkit for understanding, monitoring, diagnosing, and troubleshooting computer networks from a single desktop application.
 
-\* 🔧 Contribute improvements
+---
 
-\* 📢 Share the project
+### 🩺 Network Doctor
 
-
-
-\---
-
-
-
-\## 📌 Project Status
-
-
-
-Network Doctor is an actively developing Windows network diagnostics application.
-
-
-
-The goal is to provide a practical, modern, and accessible toolkit for understanding and troubleshooting computer networks from a single desktop application.
-
-
-
-\---
-
-
-
-\*\*Network Doctor — Diagnose. Analyze. Understand your Network. 🩺🌐\*\*
-
-
-
+**Diagnose. Analyze. Understand your Network.** 🌐
