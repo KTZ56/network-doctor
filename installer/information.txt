@@ -1,0 +1,35 @@
+# Network Doctor
+
+Thank you for installing Network Doctor.
+
+Network Doctor is a Windows network diagnostics and troubleshooting application developed by Kush Tech Zone.
+
+## Features
+
+Network Doctor provides tools for:
+
+* Network interface information
+* Ethernet and Wi-Fi detection
+* IP address and gateway information
+* DNS diagnostics
+* Gateway and Internet connectivity tests
+* Traceroute
+* Network device scanning
+* Port diagnostics
+* Speed testing
+* WHOIS/RDAP lookup
+* IP geolocation
+* ASN information
+* Network diagnosis
+
+## Important
+
+Network Doctor is intended for legitimate network administration, troubleshooting, testing, and educational purposes.
+
+Only use network scanning and diagnostic features on systems and networks that you own or have permission to test.
+
+For more information, please refer to the End User License Agreement included with this installation.
+
+**Kush Tech Zone**
+
+Copyright © 2026 Kush Tech Zone. All rights reserved.

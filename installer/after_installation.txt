@@ -1,0 +1,32 @@
+# Network Doctor Installation Complete
+
+Thank you for installing **Network Doctor**.
+
+Network Doctor has been successfully installed on your computer.
+
+## Getting Started
+
+You can launch Network Doctor using:
+
+* The Desktop shortcut
+* The Start Menu → Network Doctor
+
+## Recommended First Steps
+
+1. Open Network Doctor.
+2. Check the detected network interface.
+3. Review your IP address, subnet mask, gateway, DNS, MAC address, and DHCP status.
+4. Run the connectivity diagnostics.
+5. Use the available diagnostic tools when troubleshooting network problems.
+
+## Important
+
+Only use network scanning, port testing, and other diagnostic features on networks and systems that you own or have explicit permission to test.
+
+Some diagnostic features may require an active Internet connection or appropriate Windows permissions.
+
+Thank you for using Network Doctor.
+
+**Developed by Kush Tech Zone**
+
+Copyright © 2026 Kush Tech Zone. All rights reserved.

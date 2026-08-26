@@ -1,0 +1,101 @@
+# NETWORK DOCTOR
+
+## END USER LICENSE AGREEMENT
+
+**Copyright © 2026 Kush Tech Zone. All rights reserved.**
+
+This End User License Agreement ("Agreement") is a legal agreement between you ("User") and **Kush Tech Zone** ("Developer") for the software application **Network Doctor**, including its software components, documentation, and related materials ("Software").
+
+By installing, accessing, or using Network Doctor, you agree to the terms of this Agreement.
+
+## 1. Grant of License
+
+Kush Tech Zone grants you a limited, non-exclusive, non-transferable license to install and use Network Doctor on compatible Windows devices for legitimate network diagnostics, troubleshooting, monitoring, and educational purposes.
+
+## 2. Permitted Use
+
+You may use Network Doctor to:
+
+* Diagnose network connectivity problems.
+* Examine network configuration information.
+* Test connectivity to authorized systems and networks.
+* Perform network troubleshooting and diagnostic operations.
+* Use the Software for legitimate educational, professional, and administrative purposes.
+
+You are responsible for ensuring that you have permission to test or analyze any network, computer, device, server, domain, or system using Network Doctor.
+
+## 3. Prohibited Use
+
+You must not use Network Doctor for unauthorized access, unauthorized scanning, disruption of services, malicious activity, or any activity that violates applicable laws or regulations.
+
+You must not use the Software to attack, compromise, damage, interfere with, or gain unauthorized access to systems or networks belonging to another person or organization.
+
+## 4. Network Scanning and Diagnostic Features
+
+Network Doctor may provide features such as network scanning, port testing, traceroute, DNS diagnostics, WHOIS/RDAP queries, IP geolocation, and other network diagnostic functions.
+
+These features are intended for legitimate and authorized use only.
+
+Kush Tech Zone does not authorize you to scan or test systems that you do not own or have explicit permission to test.
+
+## 5. Third-Party Services
+
+Some Network Doctor features may communicate with third-party services or APIs.
+
+Third-party services may have their own terms of service, privacy policies, availability limitations, and usage restrictions.
+
+Kush Tech Zone is not responsible for changes, interruptions, limitations, or failures of third-party services.
+
+## 6. Updates
+
+Kush Tech Zone may release updates, improvements, bug fixes, security fixes, or new features for Network Doctor.
+
+Updates may change or improve existing functionality.
+
+## 7. Privacy
+
+Network Doctor may process technical network information required to perform diagnostic functions.
+
+The Software should not be assumed to provide complete privacy or anonymity.
+
+Users are responsible for reviewing the behavior of network diagnostic features and any third-party services used by the Software.
+
+## 8. No Warranty
+
+Network Doctor is provided on an "AS IS" and "AS AVAILABLE" basis.
+
+To the maximum extent permitted by applicable law, Kush Tech Zone makes no warranties, express or implied, regarding the Software's performance, reliability, availability, accuracy, or suitability for a particular purpose.
+
+## 9. Limitation of Liability
+
+To the maximum extent permitted by applicable law, Kush Tech Zone shall not be liable for any direct, indirect, incidental, consequential, or other damages resulting from the use or inability to use Network Doctor.
+
+The User is responsible for the consequences of using the Software and for ensuring that its use complies with applicable laws and authorizations.
+
+## 10. Intellectual Property
+
+Network Doctor, including its name, software, design, documentation, and associated materials, is owned by or licensed to Kush Tech Zone and is protected by applicable intellectual property laws.
+
+Except as expressly permitted by this Agreement, you may not copy, modify, redistribute, reverse engineer, decompile, or create derivative works of the Software, except where such restrictions are prohibited by applicable law.
+
+## 11. Termination
+
+This license is effective until terminated.
+
+Kush Tech Zone may terminate this license if you violate the terms of this Agreement.
+
+Upon termination, you must stop using the Software and remove it from your devices.
+
+## 12. Acceptance
+
+By selecting "I Agree" during installation or by installing or using Network Doctor, you acknowledge that you have read, understood, and agreed to this Agreement.
+
+If you do not agree to these terms, do not install or use Network Doctor.
+
+## 13. Contact
+
+**Kush Tech Zone**
+
+Developer of Network Doctor
+
+Copyright © 2026 Kush Tech Zone. All rights reserved.
