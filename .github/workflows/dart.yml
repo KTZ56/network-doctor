@@ -56,6 +56,42 @@ jobs:
           Write-Host "Windows build verified:"
           Write-Host $app
 
+      - name: Install Inno Setup
+        shell: powershell
+        run: |
+          choco install innosetup --no-progress -y
+
+      - name: Build Windows installer
+        shell: powershell
+        run: |
+          $iscc = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+
+          if (-not (Test-Path $iscc)) {
+              Write-Error "Inno Setup compiler was not found."
+              exit 1
+          }
+
+          & $iscc "installer\NetworkDoctor.iss"
+
+      - name: Verify installer
+        shell: powershell
+        run: |
+          $installer = "installer\output\Network Doctor Setup.exe"
+
+          if (-not (Test-Path $installer)) {
+              Write-Error "Network Doctor installer was not created."
+              exit 1
+          }
+
+          Write-Host "Installer created successfully:"
+          Write-Host $installer
+
+      - name: Upload Windows installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: network-doctor-installer
+          path: installer/output/Network Doctor Setup.exe
+
       - name: Create ZIP package
         shell: powershell
         run: |
@@ -63,12 +99,6 @@ jobs:
             -Path "build\windows\x64\runner\Release\*" `
             -DestinationPath "network-doctor-windows.zip" `
             -Force
-
-      - name: Upload Windows build
-        uses: actions/upload-artifact@v4
-        with:
-          name: network-doctor-windows
-          path: build/windows/x64/runner/Release/
 
       - name: Upload Windows ZIP
         uses: actions/upload-artifact@v4
