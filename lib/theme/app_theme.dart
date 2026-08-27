@@ -19,16 +19,12 @@ class AppTheme {
       error: AppColors.error,
     ),
 
-    textTheme: GoogleFonts.interTextTheme(
-      ThemeData.dark().textTheme,
-    ),
+    textTheme: GoogleFonts.interTextTheme(ThemeData.dark().textTheme),
 
     cardTheme: CardThemeData(
       elevation: 0,
       color: AppColors.darkCard,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     ),
 
     appBarTheme: const AppBarTheme(
@@ -41,9 +37,7 @@ class AppTheme {
       backgroundColor: AppColors.darkSurface,
       indicatorColor: AppColors.primary.withValues(alpha: 0.2),
       labelTextStyle: WidgetStateProperty.all(
-        const TextStyle(
-          fontWeight: FontWeight.w600,
-        ),
+        const TextStyle(fontWeight: FontWeight.w600),
       ),
     ),
 
@@ -68,22 +62,15 @@ class AppTheme {
     cardTheme: CardThemeData(
       elevation: 0,
       color: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     ),
 
-    appBarTheme: const AppBarTheme(
-      centerTitle: false,
-      elevation: 0,
-    ),
+    appBarTheme: const AppBarTheme(centerTitle: false, elevation: 0),
 
     navigationBarTheme: NavigationBarThemeData(
       indicatorColor: AppColors.primary.withValues(alpha: 0.15),
       labelTextStyle: WidgetStateProperty.all(
-        const TextStyle(
-          fontWeight: FontWeight.w600,
-        ),
+        const TextStyle(fontWeight: FontWeight.w600),
       ),
     ),
 

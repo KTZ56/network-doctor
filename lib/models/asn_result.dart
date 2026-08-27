@@ -11,17 +11,12 @@ class AsnPrefix {
     required this.continent,
   });
 
-  factory AsnPrefix.fromJson(
-    Map<String, dynamic> json,
-  ) {
+  factory AsnPrefix.fromJson(Map<String, dynamic> json) {
     return AsnPrefix(
       cidr: json['cidr']?.toString() ?? 'Unknown',
-      countryCode:
-          json['country_code']?.toString() ?? 'Unknown',
-      country:
-          json['country']?.toString() ?? 'Unknown',
-      continent:
-          json['continent']?.toString() ?? 'Unknown',
+      countryCode: json['country_code']?.toString() ?? 'Unknown',
+      country: json['country']?.toString() ?? 'Unknown',
+      continent: json['continent']?.toString() ?? 'Unknown',
     );
   }
 }
@@ -45,33 +40,26 @@ class AsnResult {
     required this.message,
   });
 
-  factory AsnResult.fromJson(
-    Map<String, dynamic> json,
-  ) {
+  factory AsnResult.fromJson(Map<String, dynamic> json) {
     final error = json['error'];
 
-    final cidrData =
-        json['cidrs'] as List? ?? [];
+    final cidrData = json['cidrs'] as List? ?? [];
 
     return AsnResult(
       success: error == null,
       asNumber: json['as_number'] is num
           ? (json['as_number'] as num).toInt()
           : null,
-      organization:
-          json['as_description']?.toString() ?? 'Unknown',
+      organization: json['as_description']?.toString() ?? 'Unknown',
       ipv4Count: json['ipv4_count'] is num
           ? (json['ipv4_count'] as num).toInt()
           : 0,
-      ipv6PrefixCount:
-          json['ipv6_prefix_count'] is num
-              ? (json['ipv6_prefix_count'] as num).toInt()
-              : 0,
+      ipv6PrefixCount: json['ipv6_prefix_count'] is num
+          ? (json['ipv6_prefix_count'] as num).toInt()
+          : 0,
       cidrs: cidrData
           .whereType<Map<String, dynamic>>()
-          .map(
-            (item) => AsnPrefix.fromJson(item),
-          )
+          .map((item) => AsnPrefix.fromJson(item))
           .toList(),
       message: error == null
           ? 'ASN lookup completed successfully.'
@@ -79,9 +67,7 @@ class AsnResult {
     );
   }
 
-  factory AsnResult.failure({
-    required String message,
-  }) {
+  factory AsnResult.failure({required String message}) {
     return AsnResult(
       success: false,
       asNumber: null,

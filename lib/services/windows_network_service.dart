@@ -4,16 +4,10 @@ import '../models/network_info.dart';
 
 class WindowsNetworkService {
   Future<NetworkInfo> getNetworkInfo() async {
-    final result = await Process.run(
-      'ipconfig',
-      ['/all'],
-      runInShell: true,
-    );
+    final result = await Process.run('ipconfig', ['/all'], runInShell: true);
 
     if (result.exitCode != 0) {
-      throw Exception(
-        'Unable to read Windows network configuration.',
-      );
+      throw Exception('Unable to read Windows network configuration.');
     }
 
     final output = result.stdout.toString();
@@ -62,12 +56,9 @@ class WindowsNetworkService {
     );
   }
 
-  _AdapterInfo? _findAdapterWithIpv4(
-    List<_AdapterInfo> adapters,
-  ) {
+  _AdapterInfo? _findAdapterWithIpv4(List<_AdapterInfo> adapters) {
     for (final adapter in adapters) {
-      if (adapter.ipv4 != null &&
-          adapter.ipv4 != '127.0.0.1') {
+      if (adapter.ipv4 != null && adapter.ipv4 != '127.0.0.1') {
         return adapter;
       }
     }
@@ -76,9 +67,7 @@ class WindowsNetworkService {
   }
 
   List<_AdapterInfo> _parseAdapters(String output) {
-    final lines = output.split(
-      RegExp(r'\r?\n'),
-    );
+    final lines = output.split(RegExp(r'\r?\n'));
 
     final adapters = <_AdapterInfo>[];
 
@@ -102,9 +91,7 @@ class WindowsNetworkService {
           adapters.add(current);
         }
 
-        current = _AdapterInfo(
-          name: headerMatch.group(2)?.trim(),
-        );
+        current = _AdapterInfo(name: headerMatch.group(2)?.trim());
 
         continue;
       }
@@ -121,32 +108,25 @@ class WindowsNetworkService {
 
       // DHCP
       if (line.startsWith('DHCP Enabled')) {
-        current.dhcpEnabled =
-            line.toLowerCase().contains('yes');
+        current.dhcpEnabled = line.toLowerCase().contains('yes');
         continue;
       }
 
       // IPv4 Address
       if (line.startsWith('IPv4 Address')) {
-        current.ipv4 = _cleanValue(
-          _value(line),
-        );
+        current.ipv4 = _cleanValue(_value(line));
         continue;
       }
 
       // Subnet Mask
       if (line.startsWith('Subnet Mask')) {
-        current.subnetMask = _cleanValue(
-          _value(line),
-        );
+        current.subnetMask = _cleanValue(_value(line));
         continue;
       }
 
       // Default Gateway
       if (line.startsWith('Default Gateway')) {
-        final value = _cleanValue(
-          _value(line),
-        );
+        final value = _cleanValue(_value(line));
 
         if (value.isNotEmpty) {
           current.gateway = value;
@@ -157,9 +137,7 @@ class WindowsNetworkService {
 
       // DNS Servers
       if (line.startsWith('DNS Servers')) {
-        final value = _cleanValue(
-          _value(line),
-        );
+        final value = _cleanValue(_value(line));
 
         if (value.isNotEmpty) {
           current.dns = value;
@@ -188,13 +166,7 @@ class WindowsNetworkService {
 
   String _cleanValue(String value) {
     return value
-        .replaceAll(
-          RegExp(
-            r'\s*\(Preferred\)',
-            caseSensitive: false,
-          ),
-          '',
-        )
+        .replaceAll(RegExp(r'\s*\(Preferred\)', caseSensitive: false), '')
         .trim();
   }
 }
@@ -209,7 +181,5 @@ class _AdapterInfo {
 
   bool dhcpEnabled = false;
 
-  _AdapterInfo({
-    this.name,
-  });
+  _AdapterInfo({this.name});
 }

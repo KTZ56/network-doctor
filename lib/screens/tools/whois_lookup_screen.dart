@@ -7,14 +7,11 @@ class WhoisLookupScreen extends StatefulWidget {
   const WhoisLookupScreen({super.key});
 
   @override
-  State<WhoisLookupScreen> createState() =>
-      _WhoisLookupScreenState();
+  State<WhoisLookupScreen> createState() => _WhoisLookupScreenState();
 }
 
-class _WhoisLookupScreenState
-    extends State<WhoisLookupScreen> {
-  final TextEditingController _domainController =
-      TextEditingController(
+class _WhoisLookupScreenState extends State<WhoisLookupScreen> {
+  final TextEditingController _domainController = TextEditingController(
     text: 'google.com',
   );
 
@@ -29,9 +26,7 @@ class _WhoisLookupScreenState
 
     if (domain.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please enter a domain name.'),
-        ),
+        const SnackBar(content: Text('Please enter a domain name.')),
       );
       return;
     }
@@ -64,22 +59,17 @@ class _WhoisLookupScreenState
 
           child: Center(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxWidth: 1000,
-              ),
+              constraints: const BoxConstraints(maxWidth: 1000),
 
               child: Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
 
                 children: [
                   // ==================================================
                   // HEADER
                   // ==================================================
-
                   Row(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
 
                     children: [
                       Container(
@@ -87,17 +77,14 @@ class _WhoisLookupScreenState
                         height: 56,
 
                         decoration: BoxDecoration(
-                          color:
-                              colors.primaryContainer,
-                          borderRadius:
-                              BorderRadius.circular(17),
+                          color: colors.primaryContainer,
+                          borderRadius: BorderRadius.circular(17),
                         ),
 
                         child: Icon(
                           Icons.public_rounded,
                           size: 30,
-                          color:
-                              colors.onPrimaryContainer,
+                          color: colors.onPrimaryContainer,
                         ),
                       ),
 
@@ -105,19 +92,14 @@ class _WhoisLookupScreenState
 
                       Expanded(
                         child: Column(
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
 
                           children: [
                             Text(
                               'WHOIS Lookup',
 
-                              style: theme
-                                  .textTheme
-                                  .headlineSmall
-                                  ?.copyWith(
-                                fontWeight:
-                                    FontWeight.bold,
+                              style: theme.textTheme.headlineSmall?.copyWith(
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
 
@@ -126,12 +108,8 @@ class _WhoisLookupScreenState
                             Text(
                               'Retrieve domain registration, registrar, expiry, and name server information.',
 
-                              style: theme
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                color: colors
-                                    .onSurfaceVariant,
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: colors.onSurfaceVariant,
                               ),
                             ),
                           ],
@@ -145,47 +123,33 @@ class _WhoisLookupScreenState
                   // ==================================================
                   // SEARCH CARD
                   // ==================================================
-
                   Card(
                     elevation: 0,
 
-                    color:
-                        colors.surfaceContainerHighest,
+                    color: colors.surfaceContainerHighest,
 
-                    shape:
-                        RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(20),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
                     ),
 
                     child: Padding(
-                      padding:
-                          const EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
 
                       child: Column(
-                        crossAxisAlignment:
-                            CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
 
                         children: [
                           Row(
                             children: [
-                              Icon(
-                                Icons.search_rounded,
-                                color:
-                                    colors.primary,
-                              ),
+                              Icon(Icons.search_rounded, color: colors.primary),
 
                               const SizedBox(width: 10),
 
                               Text(
                                 'Domain Lookup',
 
-                                style: theme
-                                    .textTheme
-                                    .titleMedium
-                                    ?.copyWith(
-                                  fontWeight:
-                                      FontWeight.bold,
+                                style: theme.textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ],
@@ -196,108 +160,69 @@ class _WhoisLookupScreenState
                           Text(
                             'Enter a domain such as google.com.',
 
-                            style: theme
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(
-                              color:
-                                  colors.onSurfaceVariant,
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: colors.onSurfaceVariant,
                             ),
                           ),
 
                           const SizedBox(height: 16),
 
                           LayoutBuilder(
-                            builder:
-                                (context, constraints) {
-                              final compact =
-                                  constraints.maxWidth <
-                                      600;
+                            builder: (context, constraints) {
+                              final compact = constraints.maxWidth < 600;
 
-                              final field =
-                                  TextField(
-                                controller:
-                                    _domainController,
+                              final field = TextField(
+                                controller: _domainController,
 
-                                enabled:
-                                    !provider
-                                        .testingWhois,
+                                enabled: !provider.testingWhois,
 
-                                keyboardType:
-                                    TextInputType.url,
+                                keyboardType: TextInputType.url,
 
-                                textInputAction:
-                                    TextInputAction.search,
+                                textInputAction: TextInputAction.search,
 
                                 onSubmitted: (_) {
-                                  if (!provider
-                                      .testingWhois) {
-                                    _runLookup(
-                                      provider,
-                                    );
+                                  if (!provider.testingWhois) {
+                                    _runLookup(provider);
                                   }
                                 },
 
-                                decoration:
-                                    InputDecoration(
-                                  labelText:
-                                      'Domain Name',
+                                decoration: InputDecoration(
+                                  labelText: 'Domain Name',
 
-                                  hintText:
-                                      'google.com',
+                                  hintText: 'google.com',
 
-                                  prefixIcon:
-                                      const Icon(
-                                    Icons
-                                        .language_rounded,
+                                  prefixIcon: const Icon(
+                                    Icons.language_rounded,
                                   ),
 
-                                  border:
-                                      OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius
-                                            .circular(
-                                      14,
-                                    ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(14),
                                   ),
                                 ),
                               );
 
-                              final button =
-                                  SizedBox(
+                              final button = SizedBox(
                                 height: 56,
 
-                                child:
-                                    FilledButton.icon(
-                                  onPressed:
-                                      provider
-                                              .testingWhois
-                                          ? null
-                                          : () {
-                                              _runLookup(
-                                                provider,
-                                              );
-                                            },
+                                child: FilledButton.icon(
+                                  onPressed: provider.testingWhois
+                                      ? null
+                                      : () {
+                                          _runLookup(provider);
+                                        },
 
-                                  icon: provider
-                                          .testingWhois
+                                  icon: provider.testingWhois
                                       ? const SizedBox(
                                           width: 18,
                                           height: 18,
-                                          child:
-                                              CircularProgressIndicator(
-                                            strokeWidth:
-                                                2,
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 2,
                                           ),
                                         )
-                                      : const Icon(
-                                          Icons
-                                              .search_rounded,
-                                        ),
+                                      : const Icon(Icons.search_rounded),
 
                                   label: Text(
-                                    provider
-                                            .testingWhois
+                                    provider.testingWhois
                                         ? 'Looking up...'
                                         : 'Lookup WHOIS',
                                   ),
@@ -309,13 +234,10 @@ class _WhoisLookupScreenState
                                   children: [
                                     field,
 
-                                    const SizedBox(
-                                      height: 12,
-                                    ),
+                                    const SizedBox(height: 12),
 
                                     SizedBox(
-                                      width:
-                                          double.infinity,
+                                      width: double.infinity,
                                       child: button,
                                     ),
                                   ],
@@ -323,18 +245,12 @@ class _WhoisLookupScreenState
                               }
 
                               return Row(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment
-                                        .start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
 
                                 children: [
-                                  Expanded(
-                                    child: field,
-                                  ),
+                                  Expanded(child: field),
 
-                                  const SizedBox(
-                                    width: 12,
-                                  ),
+                                  const SizedBox(width: 12),
 
                                   button,
                                 ],
@@ -351,14 +267,12 @@ class _WhoisLookupScreenState
                   // ==================================================
                   // LOADING
                   // ==================================================
-
                   if (provider.testingWhois)
                     Card(
                       elevation: 0,
 
                       child: Padding(
-                        padding:
-                            const EdgeInsets.all(24),
+                        padding: const EdgeInsets.all(24),
 
                         child: Row(
                           children: [
@@ -366,11 +280,9 @@ class _WhoisLookupScreenState
                               width: 26,
                               height: 26,
 
-                              child:
-                                  CircularProgressIndicator(
+                              child: CircularProgressIndicator(
                                 strokeWidth: 2.5,
-                                color:
-                                    colors.primary,
+                                color: colors.primary,
                               ),
                             ),
 
@@ -378,36 +290,23 @@ class _WhoisLookupScreenState
 
                             Expanded(
                               child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment
-                                        .start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
 
                                 children: [
                                   Text(
                                     'Retrieving WHOIS data',
 
-                                    style: theme
-                                        .textTheme
-                                        .titleMedium
-                                        ?.copyWith(
-                                      fontWeight:
-                                          FontWeight.bold,
-                                    ),
+                                    style: theme.textTheme.titleMedium
+                                        ?.copyWith(fontWeight: FontWeight.bold),
                                   ),
 
-                                  const SizedBox(
-                                    height: 4,
-                                  ),
+                                  const SizedBox(height: 4),
 
                                   Text(
                                     'Querying domain registration information...',
 
-                                    style: theme
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(
-                                      color: colors
-                                          .onSurfaceVariant,
+                                    style: theme.textTheme.bodySmall?.copyWith(
+                                      color: colors.onSurfaceVariant,
                                     ),
                                   ),
                                 ],
@@ -421,12 +320,8 @@ class _WhoisLookupScreenState
                   // ==================================================
                   // RESULT
                   // ==================================================
-
-                  if (result != null &&
-                      !provider.testingWhois)
-                    _WhoisResultCard(
-                      result: result,
-                    ),
+                  if (result != null && !provider.testingWhois)
+                    _WhoisResultCard(result: result),
                 ],
               ),
             ),
@@ -444,9 +339,7 @@ class _WhoisLookupScreenState
 class _WhoisResultCard extends StatelessWidget {
   final dynamic result;
 
-  const _WhoisResultCard({
-    required this.result,
-  });
+  const _WhoisResultCard({required this.result});
 
   @override
   Widget build(BuildContext context) {
@@ -455,28 +348,23 @@ class _WhoisResultCard extends StatelessWidget {
 
     final bool success = result.success as bool;
 
-    final Color statusColor =
-        success ? Colors.green : colors.error;
+    final Color statusColor = success ? Colors.green : colors.error;
 
     return Card(
       elevation: 0,
 
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
 
       child: Padding(
         padding: const EdgeInsets.all(24),
 
         child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
 
           children: [
             // ==================================================
             // RESULT HEADER
             // ==================================================
-
             Row(
               children: [
                 Container(
@@ -484,18 +372,13 @@ class _WhoisResultCard extends StatelessWidget {
                   height: 56,
 
                   decoration: BoxDecoration(
-                    color: statusColor.withValues(
-                      alpha: 0.12,
-                    ),
+                    color: statusColor.withValues(alpha: 0.12),
 
-                    borderRadius:
-                        BorderRadius.circular(17),
+                    borderRadius: BorderRadius.circular(17),
                   ),
 
                   child: Icon(
-                    success
-                        ? Icons.check_circle_rounded
-                        : Icons.error_rounded,
+                    success ? Icons.check_circle_rounded : Icons.error_rounded,
 
                     color: statusColor,
                     size: 30,
@@ -506,19 +389,14 @@ class _WhoisResultCard extends StatelessWidget {
 
                 Expanded(
                   child: Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
 
                     children: [
                       Text(
                         'WHOIS Result',
 
-                        style: theme
-                            .textTheme
-                            .titleLarge
-                            ?.copyWith(
-                          fontWeight:
-                              FontWeight.bold,
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
 
@@ -527,43 +405,31 @@ class _WhoisResultCard extends StatelessWidget {
                       Text(
                         result.domain,
 
-                        style: theme
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(
-                          color:
-                              colors.onSurfaceVariant,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: colors.onSurfaceVariant,
                         ),
                       ),
                     ],
                   ),
                 ),
 
-                _StatusBadge(
-                  success: success,
-                ),
+                _StatusBadge(success: success),
               ],
             ),
 
             const SizedBox(height: 24),
 
-            Divider(
-              color: colors.outlineVariant,
-            ),
+            Divider(color: colors.outlineVariant),
 
             const SizedBox(height: 24),
 
             // ==================================================
             // REGISTRATION INFORMATION
             // ==================================================
-
             Text(
               'Registration Information',
 
-              style: theme
-                  .textTheme
-                  .titleMedium
-                  ?.copyWith(
+              style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -572,14 +438,10 @@ class _WhoisResultCard extends StatelessWidget {
 
             LayoutBuilder(
               builder: (context, constraints) {
-                final columns =
-                    constraints.maxWidth >= 700
-                        ? 2
-                        : 1;
+                final columns = constraints.maxWidth >= 700 ? 2 : 1;
 
                 final width = columns == 2
-                    ? (constraints.maxWidth - 12) /
-                        2
+                    ? (constraints.maxWidth - 12) / 2
                     : constraints.maxWidth;
 
                 return Wrap(
@@ -591,13 +453,11 @@ class _WhoisResultCard extends StatelessWidget {
                       width: width,
 
                       child: _WhoisInfoTile(
-                        icon:
-                            Icons.business_rounded,
+                        icon: Icons.business_rounded,
 
                         title: 'Registrar',
 
-                        value:
-                            result.registrar,
+                        value: result.registrar,
                       ),
                     ),
 
@@ -605,13 +465,11 @@ class _WhoisResultCard extends StatelessWidget {
                       width: width,
 
                       child: _WhoisInfoTile(
-                        icon:
-                            Icons.calendar_today_rounded,
+                        icon: Icons.calendar_today_rounded,
 
                         title: 'Creation Date',
 
-                        value:
-                            result.creationDate,
+                        value: result.creationDate,
                       ),
                     ),
 
@@ -619,13 +477,11 @@ class _WhoisResultCard extends StatelessWidget {
                       width: width,
 
                       child: _WhoisInfoTile(
-                        icon:
-                            Icons.event_rounded,
+                        icon: Icons.event_rounded,
 
                         title: 'Expiry Date',
 
-                        value:
-                            result.expiryDate,
+                        value: result.expiryDate,
                       ),
                     ),
 
@@ -633,13 +489,11 @@ class _WhoisResultCard extends StatelessWidget {
                       width: width,
 
                       child: _WhoisInfoTile(
-                        icon:
-                            Icons.public_rounded,
+                        icon: Icons.public_rounded,
 
                         title: 'Domain',
 
-                        value:
-                            result.domain,
+                        value: result.domain,
                       ),
                     ),
                   ],
@@ -652,25 +506,17 @@ class _WhoisResultCard extends StatelessWidget {
             // ==================================================
             // NAME SERVERS
             // ==================================================
-
             Row(
               children: [
-                Icon(
-                  Icons.dns_rounded,
-                  color: colors.primary,
-                ),
+                Icon(Icons.dns_rounded, color: colors.primary),
 
                 const SizedBox(width: 10),
 
                 Text(
                   'Name Servers',
 
-                  style: theme
-                      .textTheme
-                      .titleMedium
-                      ?.copyWith(
-                    fontWeight:
-                        FontWeight.bold,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
@@ -684,11 +530,7 @@ class _WhoisResultCard extends StatelessWidget {
               Column(
                 children: result.nameServers
                     .map<Widget>(
-                      (server) =>
-                          _NameServerTile(
-                        server:
-                            server.toString(),
-                      ),
+                      (server) => _NameServerTile(server: server.toString()),
                     )
                     .toList(),
               ),
@@ -698,31 +540,25 @@ class _WhoisResultCard extends StatelessWidget {
             // ==================================================
             // MESSAGE
             // ==================================================
-
             Container(
               width: double.infinity,
 
-              padding:
-                  const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
 
               decoration: BoxDecoration(
-                color:
-                    colors.surfaceContainerHighest,
+                color: colors.surfaceContainerHighest,
 
-                borderRadius:
-                    BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(16),
               ),
 
               child: Row(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
 
                 children: [
                   Icon(
                     success
                         ? Icons.info_outline_rounded
-                        : Icons
-                            .warning_amber_rounded,
+                        : Icons.warning_amber_rounded,
 
                     color: statusColor,
                     size: 21,
@@ -734,9 +570,7 @@ class _WhoisResultCard extends StatelessWidget {
                     child: Text(
                       result.message,
 
-                      style: theme
-                          .textTheme
-                          .bodyMedium,
+                      style: theme.textTheme.bodyMedium,
                     ),
                   ),
                 ],
@@ -756,27 +590,19 @@ class _WhoisResultCard extends StatelessWidget {
 class _StatusBadge extends StatelessWidget {
   final bool success;
 
-  const _StatusBadge({
-    required this.success,
-  });
+  const _StatusBadge({required this.success});
 
   @override
   Widget build(BuildContext context) {
-    final color =
-        success ? Colors.green : Colors.red;
+    final color = success ? Colors.green : Colors.red;
 
     return Container(
-      padding:
-          const EdgeInsets.symmetric(
-        horizontal: 12,
-        vertical: 7,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
 
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.12),
 
-        borderRadius:
-            BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(20),
       ),
 
       child: Text(
@@ -815,15 +641,12 @@ class _WhoisInfoTile extends StatelessWidget {
     return Container(
       width: double.infinity,
 
-      padding:
-          const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
 
       decoration: BoxDecoration(
-        color:
-            colors.surfaceContainerHighest,
+        color: colors.surfaceContainerHighest,
 
-        borderRadius:
-            BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16),
       ),
 
       child: Row(
@@ -833,38 +656,26 @@ class _WhoisInfoTile extends StatelessWidget {
             height: 42,
 
             decoration: BoxDecoration(
-              color:
-                  colors.primaryContainer,
+              color: colors.primaryContainer,
 
-              borderRadius:
-                  BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12),
             ),
 
-            child: Icon(
-              icon,
-              size: 21,
-              color:
-                  colors.onPrimaryContainer,
-            ),
+            child: Icon(icon, size: 21, color: colors.onPrimaryContainer),
           ),
 
           const SizedBox(width: 12),
 
           Expanded(
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
 
               children: [
                 Text(
                   title,
 
-                  style: theme
-                      .textTheme
-                      .labelMedium
-                      ?.copyWith(
-                    color:
-                        colors.onSurfaceVariant,
+                  style: theme.textTheme.labelMedium?.copyWith(
+                    color: colors.onSurfaceVariant,
                   ),
                 ),
 
@@ -875,15 +686,10 @@ class _WhoisInfoTile extends StatelessWidget {
 
                   maxLines: 2,
 
-                  overflow:
-                      TextOverflow.ellipsis,
+                  overflow: TextOverflow.ellipsis,
 
-                  style: theme
-                      .textTheme
-                      .titleSmall
-                      ?.copyWith(
-                    fontWeight:
-                        FontWeight.bold,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
@@ -902,9 +708,7 @@ class _WhoisInfoTile extends StatelessWidget {
 class _NameServerTile extends StatelessWidget {
   final String server;
 
-  const _NameServerTile({
-    required this.server,
-  });
+  const _NameServerTile({required this.server});
 
   @override
   Widget build(BuildContext context) {
@@ -914,23 +718,16 @@ class _NameServerTile extends StatelessWidget {
     return Container(
       width: double.infinity,
 
-      margin:
-          const EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 10),
 
-      padding:
-          const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
 
       decoration: BoxDecoration(
-        color:
-            colors.surfaceContainerHighest,
+        color: colors.surfaceContainerHighest,
 
-        borderRadius:
-            BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(14),
 
-        border: Border.all(
-          color:
-              colors.outlineVariant,
-        ),
+        border: Border.all(color: colors.outlineVariant),
       ),
 
       child: Row(
@@ -940,18 +737,15 @@ class _NameServerTile extends StatelessWidget {
             height: 38,
 
             decoration: BoxDecoration(
-              color:
-                  colors.secondaryContainer,
+              color: colors.secondaryContainer,
 
-              borderRadius:
-                  BorderRadius.circular(11),
+              borderRadius: BorderRadius.circular(11),
             ),
 
             child: Icon(
               Icons.dns_rounded,
               size: 19,
-              color:
-                  colors.onSecondaryContainer,
+              color: colors.onSecondaryContainer,
             ),
           ),
 
@@ -963,15 +757,10 @@ class _NameServerTile extends StatelessWidget {
 
               maxLines: 1,
 
-              overflow:
-                  TextOverflow.ellipsis,
+              overflow: TextOverflow.ellipsis,
 
-              style: theme
-                  .textTheme
-                  .titleSmall
-                  ?.copyWith(
-                fontWeight:
-                    FontWeight.w600,
+              style: theme.textTheme.titleSmall?.copyWith(
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
@@ -985,34 +774,25 @@ class _NameServerTile extends StatelessWidget {
 // EMPTY NAME SERVERS
 // ============================================================
 
-class _EmptyNameServers
-    extends StatelessWidget {
+class _EmptyNameServers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final colors =
-        Theme.of(context).colorScheme;
+    final colors = Theme.of(context).colorScheme;
 
     return Container(
       width: double.infinity,
 
-      padding:
-          const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
 
       decoration: BoxDecoration(
-        color:
-            colors.surfaceContainerHighest,
+        color: colors.surfaceContainerHighest,
 
-        borderRadius:
-            BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16),
       ),
 
       child: Row(
         children: [
-          Icon(
-            Icons.dns_outlined,
-            color:
-                colors.onSurfaceVariant,
-          ),
+          Icon(Icons.dns_outlined, color: colors.onSurfaceVariant),
 
           const SizedBox(width: 12),
 
@@ -1020,10 +800,7 @@ class _EmptyNameServers
             child: Text(
               'No name servers were returned.',
 
-              style: TextStyle(
-                color:
-                    colors.onSurfaceVariant,
-              ),
+              style: TextStyle(color: colors.onSurfaceVariant),
             ),
           ),
         ],

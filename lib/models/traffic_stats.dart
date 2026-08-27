@@ -15,9 +15,7 @@ class TrafficStats {
     required this.timestamp,
   });
 
-  factory TrafficStats.empty({
-    String interfaceName = 'Unknown',
-  }) {
+  factory TrafficStats.empty({String interfaceName = 'Unknown'}) {
     return TrafficStats(
       interfaceName: interfaceName,
       receivedBytes: 0,

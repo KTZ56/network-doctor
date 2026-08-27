@@ -38,17 +38,12 @@ class DeviceScannerService {
 
     final safeBatchSize = batchSize.clamp(1, _totalHosts);
 
-    for (
-      int start = 1;
-      start <= _totalHosts;
-      start += safeBatchSize
-    ) {
+    for (int start = 1; start <= _totalHosts; start += safeBatchSize) {
       if (_cancelRequested) {
         break;
       }
 
-      final end = (start + safeBatchSize - 1)
-          .clamp(1, _totalHosts);
+      final end = (start + safeBatchSize - 1).clamp(1, _totalHosts);
 
       final futures = <Future<NetworkDevice>>[];
 
@@ -59,9 +54,7 @@ class DeviceScannerService {
 
         final ip = '$subnet.$i';
 
-        futures.add(
-          _scanHost(ip),
-        );
+        futures.add(_scanHost(ip));
       }
 
       final results = await Future.wait(futures);
@@ -71,25 +64,19 @@ class DeviceScannerService {
 
         completed++;
 
-        onProgress?.call(
-          completed,
-          _totalHosts,
-        );
+        onProgress?.call(completed, _totalHosts);
       }
     }
 
-devices.sort((a, b) {
-  // Online devices first.
-  if (a.reachable != b.reachable) {
-    return a.reachable ? -1 : 1;
-  }
+    devices.sort((a, b) {
+      // Online devices first.
+      if (a.reachable != b.reachable) {
+        return a.reachable ? -1 : 1;
+      }
 
-  // Within the same status, sort by IP address.
-  return _compareIpAddresses(
-    a.ip,
-    b.ip,
-  );
-});
+      // Within the same status, sort by IP address.
+      return _compareIpAddresses(a.ip, b.ip);
+    });
 
     return devices;
   }
@@ -98,20 +85,15 @@ devices.sort((a, b) {
   // SCAN SINGLE HOST
   // ============================================================
 
-  Future<NetworkDevice> _scanHost(
-    String ip,
-  ) async {
+  Future<NetworkDevice> _scanHost(String ip) async {
     try {
-      final result = await Process.run(
-        'ping',
-        [
-          '-n',
-          '1',
-          '-w',
-          '$_pingTimeoutMs',
-          ip,
-        ],
-      );
+      final result = await Process.run('ping', [
+        '-n',
+        '1',
+        '-w',
+        '$_pingTimeoutMs',
+        ip,
+      ]);
 
       if (_cancelRequested) {
         return NetworkDevice(
@@ -128,8 +110,7 @@ devices.sort((a, b) {
       final combinedOutput = '$output\n$error';
 
       final reachable =
-          combinedOutput.contains('TTL=') ||
-          combinedOutput.contains('ttl=');
+          combinedOutput.contains('TTL=') || combinedOutput.contains('ttl=');
 
       // --------------------------------------------------------
       // OFFLINE DEVICE
@@ -148,9 +129,7 @@ devices.sort((a, b) {
       // ONLINE DEVICE
       // --------------------------------------------------------
 
-      final latency = _extractLatency(
-        combinedOutput,
-      );
+      final latency = _extractLatency(combinedOutput);
 
       return NetworkDevice(
         ip: ip,
@@ -175,9 +154,7 @@ devices.sort((a, b) {
   // EXTRACT PING LATENCY
   // ============================================================
 
-  int? _extractLatency(
-    String output,
-  ) {
+  int? _extractLatency(String output) {
     final match = RegExp(
       r'time[=<]\s*(\d+)\s*ms',
       caseSensitive: false,
@@ -187,30 +164,23 @@ devices.sort((a, b) {
       return null;
     }
 
-    return int.tryParse(
-      match.group(1)!,
-    );
+    return int.tryParse(match.group(1)!);
   }
 
   // ============================================================
   // OPTIONAL HOSTNAME LOOKUP
   // ============================================================
 
-  Future<String?> resolveHostName(
-    String ip,
-  ) async {
+  Future<String?> resolveHostName(String ip) async {
     try {
-      final result = await Process.run(
-        'ping',
-        [
-          '-a',
-          '-n',
-          '1',
-          '-w',
-          '200',
-          ip,
-        ],
-      );
+      final result = await Process.run('ping', [
+        '-a',
+        '-n',
+        '1',
+        '-w',
+        '200',
+        ip,
+      ]);
 
       final output = result.stdout.toString();
 
@@ -231,21 +201,13 @@ devices.sort((a, b) {
   // SORT IP ADDRESSES NUMERICALLY
   // ============================================================
 
-  int _compareIpAddresses(
-    String a,
-    String b,
-  ) {
-    final aParts =
-        a.split('.').map(int.parse).toList();
+  int _compareIpAddresses(String a, String b) {
+    final aParts = a.split('.').map(int.parse).toList();
 
-    final bParts =
-        b.split('.').map(int.parse).toList();
+    final bParts = b.split('.').map(int.parse).toList();
 
     for (int i = 0; i < 4; i++) {
-      final comparison =
-          aParts[i].compareTo(
-        bParts[i],
-      );
+      final comparison = aParts[i].compareTo(bParts[i]);
 
       if (comparison != 0) {
         return comparison;

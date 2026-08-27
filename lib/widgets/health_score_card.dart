@@ -45,9 +45,7 @@ class HealthScoreCard extends StatelessWidget {
                     value: score / 100,
                     strokeWidth: 10,
                     backgroundColor: Colors.white12,
-                    valueColor: AlwaysStoppedAnimation(
-                      _progressColor,
-                    ),
+                    valueColor: AlwaysStoppedAnimation(_progressColor),
                   ),
                 ),
                 Column(
@@ -55,17 +53,15 @@ class HealthScoreCard extends StatelessWidget {
                   children: [
                     Text(
                       '$score',
-                      style:
-                          Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
+                      style: Theme.of(context).textTheme.headlineMedium
+                          ?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                     ),
                     const Text(
                       'Score',
-                      style: TextStyle(
-                        color: Colors.white70,
-                      ),
+                      style: TextStyle(color: Colors.white70),
                     ),
                   ],
                 ),
@@ -82,26 +78,20 @@ class HealthScoreCard extends StatelessWidget {
                 Text(
                   'Internet Health',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
 
                 const SizedBox(height: 12),
 
-                StatusChip(
-                  label: status,
-                  status: _statusType,
-                ),
+                StatusChip(label: status, status: _statusType),
 
                 const SizedBox(height: 12),
 
                 Text(
                   description,
-                  style: const TextStyle(
-                    color: Colors.white70,
-                    height: 1.5,
-                  ),
+                  style: const TextStyle(color: Colors.white70, height: 1.5),
                 ),
               ],
             ),

@@ -36,53 +36,39 @@ class TrafficMonitorService {
     }
   }
 
-  Future<TrafficStats?> _readStats(
-    String interfaceName,
-  ) async {
+  Future<TrafficStats?> _readStats(String interfaceName) async {
     try {
-      final escapedName =
-          interfaceName.replaceAll("'", "''");
+      final escapedName = interfaceName.replaceAll("'", "''");
 
-      final command = '''
+      final command =
+          '''
 \$stats = Get-NetAdapterStatistics -Name '$escapedName' -ErrorAction Stop |
   Select-Object -First 1 ReceivedBytes,SentBytes;
 \$stats | ConvertTo-Json -Compress
 ''';
 
-      final result = await Process.run(
-        'powershell.exe',
-        [
-          '-NoProfile',
-          '-NonInteractive',
-          '-Command',
-          command,
-        ],
-        runInShell: true,
-      );
+      final result = await Process.run('powershell.exe', [
+        '-NoProfile',
+        '-NonInteractive',
+        '-Command',
+        command,
+      ], runInShell: true);
 
       if (result.exitCode != 0) {
         return null;
       }
 
-      final output =
-          result.stdout.toString().trim();
+      final output = result.stdout.toString().trim();
 
       if (output.isEmpty) {
         return null;
       }
 
-      final decoded =
-          jsonDecode(output) as Map<String, dynamic>;
+      final decoded = jsonDecode(output) as Map<String, dynamic>;
 
-      final received =
-          (decoded['ReceivedBytes'] as num?)
-                  ?.toInt() ??
-              0;
+      final received = (decoded['ReceivedBytes'] as num?)?.toInt() ?? 0;
 
-      final sent =
-          (decoded['SentBytes'] as num?)
-                  ?.toInt() ??
-              0;
+      final sent = (decoded['SentBytes'] as num?)?.toInt() ?? 0;
 
       final now = DateTime.now();
 
@@ -92,31 +78,21 @@ class TrafficMonitorService {
       if (_previousReceivedBytes != null &&
           _previousSentBytes != null &&
           _previousTimestamp != null) {
-        final elapsed =
-            now.difference(_previousTimestamp!);
+        final elapsed = now.difference(_previousTimestamp!);
 
-        final seconds =
-            elapsed.inMicroseconds / 1000000;
+        final seconds = elapsed.inMicroseconds / 1000000;
 
         if (seconds > 0) {
-          final receivedDelta =
-              received - _previousReceivedBytes!;
+          final receivedDelta = received - _previousReceivedBytes!;
 
-          final sentDelta =
-              sent - _previousSentBytes!;
+          final sentDelta = sent - _previousSentBytes!;
 
           if (receivedDelta >= 0) {
-            downloadMbps =
-                (receivedDelta * 8) /
-                seconds /
-                1000000;
+            downloadMbps = (receivedDelta * 8) / seconds / 1000000;
           }
 
           if (sentDelta >= 0) {
-            uploadMbps =
-                (sentDelta * 8) /
-                seconds /
-                1000000;
+            uploadMbps = (sentDelta * 8) / seconds / 1000000;
           }
         }
       }

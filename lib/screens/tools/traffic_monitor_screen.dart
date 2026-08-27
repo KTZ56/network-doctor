@@ -28,46 +28,34 @@ class TrafficMonitorScreen extends StatelessWidget {
           padding: const EdgeInsets.all(24),
           child: Center(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxWidth: 1200,
-              ),
+              constraints: const BoxConstraints(maxWidth: 1200),
               child: Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _Header(),
 
                   const SizedBox(height: 28),
 
-                  _MonitorControl(
-                    provider: provider,
-                  ),
+                  _MonitorControl(provider: provider),
 
                   const SizedBox(height: 24),
 
-                  if (stats == null &&
-                      !provider.monitoringTraffic)
+                  if (stats == null && !provider.monitoringTraffic)
                     const _EmptyState(),
 
                   if (stats != null) ...[
-                    _LiveTrafficOverview(
-                      provider: provider,
-                    ),
+                    _LiveTrafficOverview(provider: provider),
 
                     const SizedBox(height: 20),
 
                     _TrafficChart(
-                      download:
-                          provider.downloadHistory,
-                      upload:
-                          provider.uploadHistory,
+                      download: provider.downloadHistory,
+                      upload: provider.uploadHistory,
                     ),
 
                     const SizedBox(height: 20),
 
-                    _TrafficTotals(
-                      stats: stats,
-                    ),
+                    _TrafficTotals(stats: stats),
                   ],
                 ],
               ),
@@ -90,20 +78,15 @@ class _Header extends StatelessWidget {
     final colors = theme.colorScheme;
 
     return Row(
-      crossAxisAlignment:
-          CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           width: 58,
           height: 58,
           decoration: BoxDecoration(
-            borderRadius:
-                BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(18),
             gradient: LinearGradient(
-              colors: [
-                colors.primary,
-                colors.secondary,
-              ],
+              colors: [colors.primary, colors.secondary],
             ),
           ),
           child: Icon(
@@ -117,31 +100,22 @@ class _Header extends StatelessWidget {
 
         Expanded(
           child: Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Network Traffic',
-                style: theme
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(
-                      fontWeight:
-                          FontWeight.bold,
-                    ),
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
 
               const SizedBox(height: 5),
 
               Text(
                 'Monitor real-time bandwidth usage on your active network interface.',
-                style: theme
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(
-                      color:
-                          colors.onSurfaceVariant,
-                    ),
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: colors.onSurfaceVariant,
+                ),
               ),
             ],
           ),
@@ -155,22 +129,17 @@ class _Header extends StatelessWidget {
 // CONTROL
 // ============================================================
 
-class _MonitorControl
-    extends StatelessWidget {
+class _MonitorControl extends StatelessWidget {
   final NetworkProvider provider;
 
-  const _MonitorControl({
-    required this.provider,
-  });
+  const _MonitorControl({required this.provider});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
 
-    final interfaceName =
-        provider.networkInfo?.interfaceName ??
-            'Unknown';
+    final interfaceName = provider.networkInfo?.interfaceName ?? 'Unknown';
 
     return GlassCard(
       child: Row(
@@ -179,12 +148,8 @@ class _MonitorControl
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              color:
-                  colors.primary.withValues(
-                alpha: 0.12,
-              ),
-              borderRadius:
-                  BorderRadius.circular(15),
+              color: colors.primary.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(15),
             ),
             child: Icon(
               provider.monitoringTraffic
@@ -198,17 +163,14 @@ class _MonitorControl
 
           Expanded(
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   provider.monitoringTraffic
                       ? 'Monitoring Traffic'
                       : 'Traffic Monitor',
-                  style: theme.textTheme.titleMedium
-                      ?.copyWith(
-                    fontWeight:
-                        FontWeight.bold,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
 
@@ -216,10 +178,8 @@ class _MonitorControl
 
                 Text(
                   'Interface: $interfaceName',
-                  style: theme.textTheme.bodySmall
-                      ?.copyWith(
-                    color:
-                        colors.onSurfaceVariant,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: colors.onSurfaceVariant,
                   ),
                 ),
               ],
@@ -227,9 +187,7 @@ class _MonitorControl
           ),
 
           StatusChip(
-            label: provider.monitoringTraffic
-                ? 'LIVE'
-                : 'STOPPED',
+            label: provider.monitoringTraffic ? 'LIVE' : 'STOPPED',
             status: provider.monitoringTraffic
                 ? StatusType.healthy
                 : StatusType.warning,
@@ -246,11 +204,7 @@ class _MonitorControl
                   ? Icons.stop_rounded
                   : Icons.play_arrow_rounded,
             ),
-            label: Text(
-              provider.monitoringTraffic
-                  ? 'Stop'
-                  : 'Start',
-            ),
+            label: Text(provider.monitoringTraffic ? 'Stop' : 'Start'),
           ),
         ],
       ),
@@ -262,13 +216,10 @@ class _MonitorControl
 // LIVE TRAFFIC
 // ============================================================
 
-class _LiveTrafficOverview
-    extends StatelessWidget {
+class _LiveTrafficOverview extends StatelessWidget {
   final NetworkProvider provider;
 
-  const _LiveTrafficOverview({
-    required this.provider,
-  });
+  const _LiveTrafficOverview({required this.provider});
 
   @override
   Widget build(BuildContext context) {
@@ -276,16 +227,13 @@ class _LiveTrafficOverview
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final columns =
-            constraints.maxWidth >= 800 ? 2 : 1;
+        final columns = constraints.maxWidth >= 800 ? 2 : 1;
 
         final spacing = 16.0;
 
         final width = columns == 1
             ? constraints.maxWidth
-            : (constraints.maxWidth -
-                    spacing) /
-                2;
+            : (constraints.maxWidth - spacing) / 2;
 
         return Wrap(
           spacing: spacing,
@@ -295,10 +243,8 @@ class _LiveTrafficOverview
               width: width,
               child: _TrafficMetric(
                 title: 'Download',
-                value:
-                    '${stats.downloadMbps.toStringAsFixed(2)} Mbps',
-                icon:
-                    Icons.arrow_downward_rounded,
+                value: '${stats.downloadMbps.toStringAsFixed(2)} Mbps',
+                icon: Icons.arrow_downward_rounded,
                 color: Colors.blue,
               ),
             ),
@@ -307,10 +253,8 @@ class _LiveTrafficOverview
               width: width,
               child: _TrafficMetric(
                 title: 'Upload',
-                value:
-                    '${stats.uploadMbps.toStringAsFixed(2)} Mbps',
-                icon:
-                    Icons.arrow_upward_rounded,
+                value: '${stats.uploadMbps.toStringAsFixed(2)} Mbps',
+                icon: Icons.arrow_upward_rounded,
                 color: Colors.teal,
               ),
             ),
@@ -325,8 +269,7 @@ class _LiveTrafficOverview
 // TRAFFIC METRIC
 // ============================================================
 
-class _TrafficMetric
-    extends StatelessWidget {
+class _TrafficMetric extends StatelessWidget {
   final String title;
   final String value;
   final IconData icon;
@@ -350,39 +293,25 @@ class _TrafficMetric
             width: 54,
             height: 54,
             decoration: BoxDecoration(
-              color:
-                  color.withValues(alpha: 0.12),
-              borderRadius:
-                  BorderRadius.circular(16),
+              color: color.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(16),
             ),
-            child: Icon(
-              icon,
-              color: color,
-              size: 28,
-            ),
+            child: Icon(icon, color: color, size: 28),
           ),
 
           const SizedBox(width: 14),
 
           Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style:
-                    theme.textTheme.bodySmall,
-              ),
+              Text(title, style: theme.textTheme.bodySmall),
 
               const SizedBox(height: 4),
 
               Text(
                 value,
-                style: theme.textTheme
-                    .headlineSmall
-                    ?.copyWith(
-                  fontWeight:
-                      FontWeight.bold,
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ],
@@ -401,54 +330,36 @@ class _TrafficChart extends StatelessWidget {
   final List<double> download;
   final List<double> upload;
 
-  const _TrafficChart({
-    required this.download,
-    required this.upload,
-  });
+  const _TrafficChart({required this.download, required this.upload});
 
   @override
   Widget build(BuildContext context) {
-    final colors =
-        Theme.of(context).colorScheme;
+    final colors = Theme.of(context).colorScheme;
 
     return GlassCard(
       child: Column(
-        crossAxisAlignment:
-            CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(
-                Icons.show_chart_rounded,
-                color: colors.primary,
-              ),
+              Icon(Icons.show_chart_rounded, color: colors.primary),
 
               const SizedBox(width: 10),
 
               Text(
                 'Traffic Over Time',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium
-                    ?.copyWith(
-                      fontWeight:
-                          FontWeight.bold,
-                    ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
               ),
 
               const Spacer(),
 
-              const _Legend(
-                label: 'Download',
-                color: Colors.blue,
-              ),
+              const _Legend(label: 'Download', color: Colors.blue),
 
               const SizedBox(width: 14),
 
-              const _Legend(
-                label: 'Upload',
-                color: Colors.teal,
-              ),
+              const _Legend(label: 'Upload', color: Colors.teal),
             ],
           ),
 
@@ -461,12 +372,9 @@ class _TrafficChart extends StatelessWidget {
               painter: _TrafficChartPainter(
                 download: download,
                 upload: upload,
-                downloadColor:
-                    Colors.blue,
-                uploadColor:
-                    Colors.teal,
-                gridColor:
-                    colors.outlineVariant,
+                downloadColor: Colors.blue,
+                uploadColor: Colors.teal,
+                gridColor: colors.outlineVariant,
               ),
             ),
           ),
@@ -484,34 +392,22 @@ class _Legend extends StatelessWidget {
   final String label;
   final Color color;
 
-  const _Legend({
-    required this.label,
-    required this.color,
-  });
+  const _Legend({required this.label, required this.color});
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisSize:
-          MainAxisSize.min,
+      mainAxisSize: MainAxisSize.min,
       children: [
         Container(
           width: 10,
           height: 10,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
 
         const SizedBox(width: 6),
 
-        Text(
-          label,
-          style: Theme.of(context)
-              .textTheme
-              .bodySmall,
-        ),
+        Text(label, style: Theme.of(context).textTheme.bodySmall),
       ],
     );
   }
@@ -521,8 +417,7 @@ class _Legend extends StatelessWidget {
 // CHART PAINTER
 // ============================================================
 
-class _TrafficChartPainter
-    extends CustomPainter {
+class _TrafficChartPainter extends CustomPainter {
   final List<double> download;
   final List<double> upload;
 
@@ -539,10 +434,7 @@ class _TrafficChartPainter
   });
 
   @override
-  void paint(
-    Canvas canvas,
-    Size size,
-  ) {
+  void paint(Canvas canvas, Size size) {
     final chartWidth = size.width;
     final chartHeight = size.height;
 
@@ -560,48 +452,24 @@ class _TrafficChartPainter
       ..strokeWidth = 1;
 
     for (int i = 0; i <= 5; i++) {
-      final y = rect.top +
-          (rect.height / 5) * i;
+      final y = rect.top + (rect.height / 5) * i;
 
-      canvas.drawLine(
-        Offset(rect.left, y),
-        Offset(rect.right, y),
-        gridPaint,
-      );
+      canvas.drawLine(Offset(rect.left, y), Offset(rect.right, y), gridPaint);
     }
 
-    final values = [
-      ...download,
-      ...upload,
-    ];
+    final values = [...download, ...upload];
 
     if (values.isEmpty) {
       return;
     }
 
-    final maxValue =
-        values.reduce(
-          (a, b) => a > b ? a : b,
-        );
+    final maxValue = values.reduce((a, b) => a > b ? a : b);
 
-    final safeMax =
-        maxValue <= 0 ? 1.0 : maxValue;
+    final safeMax = maxValue <= 0 ? 1.0 : maxValue;
 
-    _drawLine(
-      canvas,
-      rect,
-      download,
-      safeMax,
-      downloadColor,
-    );
+    _drawLine(canvas, rect, download, safeMax, downloadColor);
 
-    _drawLine(
-      canvas,
-      rect,
-      upload,
-      safeMax,
-      uploadColor,
-    );
+    _drawLine(canvas, rect, upload, safeMax, uploadColor);
   }
 
   void _drawLine(
@@ -622,21 +490,14 @@ class _TrafficChartPainter
 
     final path = Path();
 
-    for (int i = 0;
-        i < values.length;
-        i++) {
+    for (int i = 0; i < values.length; i++) {
       final x = values.length == 1
           ? rect.left
-          : rect.left +
-              (i /
-                      (values.length - 1)) *
-                  rect.width;
+          : rect.left + (i / (values.length - 1)) * rect.width;
 
-      final normalized =
-          values[i] / maxValue;
+      final normalized = values[i] / maxValue;
 
-      final y = rect.bottom -
-          normalized * rect.height;
+      final y = rect.bottom - normalized * rect.height;
 
       if (i == 0) {
         path.moveTo(x, y);
@@ -645,19 +506,12 @@ class _TrafficChartPainter
       }
     }
 
-    canvas.drawPath(
-      path,
-      paint,
-    );
+    canvas.drawPath(path, paint);
   }
 
   @override
-  bool shouldRepaint(
-    covariant _TrafficChartPainter oldDelegate,
-  ) {
-    return oldDelegate.download !=
-            download ||
-        oldDelegate.upload != upload;
+  bool shouldRepaint(covariant _TrafficChartPainter oldDelegate) {
+    return oldDelegate.download != download || oldDelegate.upload != upload;
   }
 }
 
@@ -668,24 +522,19 @@ class _TrafficChartPainter
 class _TrafficTotals extends StatelessWidget {
   final dynamic stats;
 
-  const _TrafficTotals({
-    required this.stats,
-  });
+  const _TrafficTotals({required this.stats});
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final columns =
-            constraints.maxWidth >= 800 ? 2 : 1;
+        final columns = constraints.maxWidth >= 800 ? 2 : 1;
 
         final spacing = 16.0;
 
         final width = columns == 1
             ? constraints.maxWidth
-            : (constraints.maxWidth -
-                    spacing) /
-                2;
+            : (constraints.maxWidth - spacing) / 2;
 
         return Wrap(
           spacing: spacing,
@@ -695,11 +544,8 @@ class _TrafficTotals extends StatelessWidget {
               width: width,
               child: _TotalCard(
                 title: 'Total Received',
-                value: _formatBytes(
-                  stats.receivedBytes,
-                ),
-                icon:
-                    Icons.download_done_rounded,
+                value: _formatBytes(stats.receivedBytes),
+                icon: Icons.download_done_rounded,
               ),
             ),
 
@@ -707,11 +553,8 @@ class _TrafficTotals extends StatelessWidget {
               width: width,
               child: _TotalCard(
                 title: 'Total Sent',
-                value: _formatBytes(
-                  stats.sentBytes,
-                ),
-                icon:
-                    Icons.upload_rounded,
+                value: _formatBytes(stats.sentBytes),
+                icon: Icons.upload_rounded,
               ),
             ),
           ],
@@ -720,9 +563,7 @@ class _TrafficTotals extends StatelessWidget {
     );
   }
 
-  String _formatBytes(
-    int bytes,
-  ) {
+  String _formatBytes(int bytes) {
     if (bytes >= 1024 * 1024 * 1024) {
       return '${(bytes / (1024 * 1024 * 1024)).toStringAsFixed(2)} GB';
     }
@@ -743,8 +584,7 @@ class _TrafficTotals extends StatelessWidget {
 // TOTAL CARD
 // ============================================================
 
-class _TotalCard
-    extends StatelessWidget {
+class _TotalCard extends StatelessWidget {
   final String title;
   final String value;
   final IconData icon;
@@ -757,8 +597,7 @@ class _TotalCard
 
   @override
   Widget build(BuildContext context) {
-    final colors =
-        Theme.of(context).colorScheme;
+    final colors = Theme.of(context).colorScheme;
 
     return GlassCard(
       child: Row(
@@ -767,41 +606,26 @@ class _TotalCard
             width: 46,
             height: 46,
             decoration: BoxDecoration(
-              color: colors.primary
-                  .withValues(alpha: 0.10),
-              borderRadius:
-                  BorderRadius.circular(14),
+              color: colors.primary.withValues(alpha: 0.10),
+              borderRadius: BorderRadius.circular(14),
             ),
-            child: Icon(
-              icon,
-              color: colors.primary,
-            ),
+            child: Icon(icon, color: colors.primary),
           ),
 
           const SizedBox(width: 14),
 
           Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall,
-              ),
+              Text(title, style: Theme.of(context).textTheme.bodySmall),
 
               const SizedBox(height: 4),
 
               Text(
                 value,
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(
-                      fontWeight:
-                          FontWeight.bold,
-                    ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
               ),
             ],
           ),
@@ -820,8 +644,7 @@ class _EmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors =
-        Theme.of(context).colorScheme;
+    final colors = Theme.of(context).colorScheme;
 
     return GlassCard(
       child: Padding(
@@ -834,8 +657,7 @@ class _EmptyState extends StatelessWidget {
                 height: 76,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: colors.primary
-                      .withValues(alpha: 0.10),
+                  color: colors.primary.withValues(alpha: 0.10),
                 ),
                 child: Icon(
                   Icons.monitor_heart_rounded,
@@ -848,35 +670,25 @@ class _EmptyState extends StatelessWidget {
 
               Text(
                 'Traffic Monitoring Ready',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(
-                      fontWeight:
-                          FontWeight.bold,
-                    ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
               ),
 
               const SizedBox(height: 7),
 
               Text(
                 'Start monitoring to see real-time bandwidth usage.',
-                textAlign:
-                    TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
 
               const SizedBox(height: 8),
 
               Text(
                 'No network traffic is generated by this monitor.',
-                textAlign:
-                    TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodySmall,
               ),
             ],
           ),

@@ -10,12 +10,10 @@ class DeviceScannerScreen extends StatefulWidget {
   const DeviceScannerScreen({super.key});
 
   @override
-  State<DeviceScannerScreen> createState() =>
-      _DeviceScannerScreenState();
+  State<DeviceScannerScreen> createState() => _DeviceScannerScreenState();
 }
 
-class _DeviceScannerScreenState
-    extends State<DeviceScannerScreen> {
+class _DeviceScannerScreenState extends State<DeviceScannerScreen> {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<NetworkProvider>();
@@ -31,11 +29,9 @@ class _DeviceScannerScreenState
       return a.reachable ? -1 : 1;
     });
 
-    final onlineCount =
-        devices.where((device) => device.reachable).length;
+    final onlineCount = devices.where((device) => device.reachable).length;
 
-    final offlineCount =
-        devices.where((device) => !device.reachable).length;
+    final offlineCount = devices.where((device) => !device.reachable).length;
 
     return Scaffold(
       appBar: AppBar(
@@ -52,12 +48,9 @@ class _DeviceScannerScreenState
           padding: const EdgeInsets.all(24),
           child: Center(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxWidth: 1200,
-              ),
+              constraints: const BoxConstraints(maxWidth: 1200),
               child: Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const _HeaderSection(),
 
@@ -71,16 +64,11 @@ class _DeviceScannerScreenState
 
                   const SizedBox(height: 24),
 
-                  _ScanControlCard(
-                    provider: provider,
-                  ),
+                  _ScanControlCard(provider: provider),
 
                   const SizedBox(height: 28),
 
-                  _DevicesSection(
-                    provider: provider,
-                    devices: devices,
-                  ),
+                  _DevicesSection(provider: provider, devices: devices),
                 ],
               ),
             ),
@@ -91,15 +79,12 @@ class _DeviceScannerScreenState
   }
 
   int _compareIpAddresses(String a, String b) {
-    final aParts =
-        a.split('.').map(int.parse).toList();
+    final aParts = a.split('.').map(int.parse).toList();
 
-    final bParts =
-        b.split('.').map(int.parse).toList();
+    final bParts = b.split('.').map(int.parse).toList();
 
     for (int i = 0; i < 4; i++) {
-      final result =
-          aParts[i].compareTo(bParts[i]);
+      final result = aParts[i].compareTo(bParts[i]);
 
       if (result != 0) {
         return result;
@@ -123,58 +108,40 @@ class _HeaderSection extends StatelessWidget {
     final colors = theme.colorScheme;
 
     return Row(
-      crossAxisAlignment:
-          CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           width: 58,
           height: 58,
           decoration: BoxDecoration(
-            borderRadius:
-                BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(18),
             gradient: LinearGradient(
-              colors: [
-                colors.primary,
-                colors.secondary,
-              ],
+              colors: [colors.primary, colors.secondary],
             ),
           ),
-          child: Icon(
-            Icons.radar_rounded,
-            color: colors.onPrimary,
-            size: 30,
-          ),
+          child: Icon(Icons.radar_rounded, color: colors.onPrimary, size: 30),
         ),
 
         const SizedBox(width: 16),
 
         Expanded(
           child: Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Network Devices',
-                style: theme
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(
-                      fontWeight:
-                          FontWeight.bold,
-                    ),
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
 
               const SizedBox(height: 5),
 
               Text(
                 'Discover and inspect devices connected to your local network.',
-                style: theme
-                    .textTheme
-                    .bodyMedium
-                    ?.copyWith(
-                      color:
-                          colors.onSurfaceVariant,
-                    ),
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: colors.onSurfaceVariant,
+                ),
               ),
             ],
           ),
@@ -188,8 +155,7 @@ class _HeaderSection extends StatelessWidget {
 // STATISTICS
 // ============================================================
 
-class _StatisticsSection
-    extends StatelessWidget {
+class _StatisticsSection extends StatelessWidget {
   final int total;
   final int online;
   final int offline;
@@ -209,17 +175,14 @@ class _StatisticsSection
         final columns = width >= 850
             ? 3
             : width >= 550
-                ? 2
-                : 1;
+            ? 2
+            : 1;
 
         const spacing = 12.0;
 
         final itemWidth = columns == 1
             ? width
-            : (width -
-                    ((columns - 1) *
-                        spacing)) /
-                columns;
+            : (width - ((columns - 1) * spacing)) / columns;
 
         final items = [
           _StatItem(
@@ -245,9 +208,7 @@ class _StatisticsSection
           children: items.map((item) {
             return SizedBox(
               width: itemWidth,
-              child: _StatCard(
-                item: item,
-              ),
+              child: _StatCard(item: item),
             );
           }).toList(),
         );
@@ -279,9 +240,7 @@ class _StatItem {
 class _StatCard extends StatelessWidget {
   final _StatItem item;
 
-  const _StatCard({
-    required this.item,
-  });
+  const _StatCard({required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -295,46 +254,32 @@ class _StatCard extends StatelessWidget {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              borderRadius:
-                  BorderRadius.circular(14),
-              color: colors.primary
-                  .withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(14),
+              color: colors.primary.withValues(alpha: 0.12),
             ),
-            child: Icon(
-              item.icon,
-              color: colors.primary,
-            ),
+            child: Icon(item.icon, color: colors.primary),
           ),
 
           const SizedBox(width: 14),
 
           Expanded(
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   item.title,
-                  style: theme
-                      .textTheme
-                      .bodySmall
-                      ?.copyWith(
-                        color: colors
-                            .onSurfaceVariant,
-                      ),
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: colors.onSurfaceVariant,
+                  ),
                 ),
 
                 const SizedBox(height: 4),
 
                 Text(
                   item.value,
-                  style: theme
-                      .textTheme
-                      .headlineSmall
-                      ?.copyWith(
-                        fontWeight:
-                            FontWeight.bold,
-                      ),
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
@@ -349,36 +294,26 @@ class _StatCard extends StatelessWidget {
 // SCAN CONTROL
 // ============================================================
 
-class _ScanControlCard
-    extends StatelessWidget {
+class _ScanControlCard extends StatelessWidget {
   final NetworkProvider provider;
 
-  const _ScanControlCard({
-    required this.provider,
-  });
+  const _ScanControlCard({required this.provider});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
 
-    final completed =
-        provider.deviceScanCompleted;
+    final completed = provider.deviceScanCompleted;
 
-    final total =
-        provider.deviceScanTotal;
+    final total = provider.deviceScanTotal;
 
-    final progress = total > 0
-        ? (completed / total)
-            .clamp(0.0, 1.0)
-        : 0.0;
+    final progress = total > 0 ? (completed / total).clamp(0.0, 1.0) : 0.0;
 
     return GlassCard(
       child: LayoutBuilder(
-        builder:
-            (context, constraints) {
-          final compact =
-              constraints.maxWidth < 650;
+        builder: (context, constraints) {
+          final compact = constraints.maxWidth < 650;
 
           final header = Row(
             children: [
@@ -386,16 +321,13 @@ class _ScanControlCard
                 width: 52,
                 height: 52,
                 decoration: BoxDecoration(
-                  borderRadius:
-                      BorderRadius.circular(16),
-                  color: colors.primary
-                      .withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(16),
+                  color: colors.primary.withValues(alpha: 0.12),
                 ),
                 child: Icon(
                   provider.scanningDevices
                       ? Icons.radar_rounded
-                      : Icons
-                          .manage_search_rounded,
+                      : Icons.manage_search_rounded,
                   color: colors.primary,
                   size: 27,
                 ),
@@ -405,20 +337,15 @@ class _ScanControlCard
 
               Expanded(
                 child: Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       provider.scanningDevices
                           ? 'Scanning Network'
                           : 'Network Scanner',
-                      style: theme
-                          .textTheme
-                          .titleMedium
-                          ?.copyWith(
-                            fontWeight:
-                                FontWeight.bold,
-                          ),
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
 
                     const SizedBox(height: 4),
@@ -427,13 +354,9 @@ class _ScanControlCard
                       provider.scanningDevices
                           ? '$completed of $total hosts checked'
                           : 'Scan your local subnet for connected devices.',
-                      style: theme
-                          .textTheme
-                          .bodySmall
-                          ?.copyWith(
-                            color: colors
-                                .onSurfaceVariant,
-                          ),
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: colors.onSurfaceVariant,
+                      ),
                     ),
                   ],
                 ),
@@ -441,43 +364,27 @@ class _ScanControlCard
             ],
           );
 
-          final button =
-              FilledButton.icon(
-            onPressed:
-                provider.scanningDevices
-                    ? provider.cancelDeviceScan
-                    : provider.scanDevices,
+          final button = FilledButton.icon(
+            onPressed: provider.scanningDevices
+                ? provider.cancelDeviceScan
+                : provider.scanDevices,
             icon: provider.scanningDevices
-                ? const Icon(
-                    Icons.stop_rounded,
-                  )
-                : const Icon(
-                    Icons.radar_rounded,
-                  ),
-            label: Text(
-              provider.scanningDevices
-                  ? 'Cancel'
-                  : 'Scan Network',
-            ),
+                ? const Icon(Icons.stop_rounded)
+                : const Icon(Icons.radar_rounded),
+            label: Text(provider.scanningDevices ? 'Cancel' : 'Scan Network'),
           );
 
           return Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (compact) ...[
                 header,
                 const SizedBox(height: 16),
-                SizedBox(
-                  width: double.infinity,
-                  child: button,
-                ),
+                SizedBox(width: double.infinity, child: button),
               ] else ...[
                 Row(
                   children: [
-                    Expanded(
-                      child: header,
-                    ),
+                    Expanded(child: header),
                     const SizedBox(width: 16),
                     button,
                   ],
@@ -488,13 +395,8 @@ class _ScanControlCard
                 const SizedBox(height: 20),
 
                 ClipRRect(
-                  borderRadius:
-                      BorderRadius.circular(10),
-                  child:
-                      LinearProgressIndicator(
-                    value: progress,
-                    minHeight: 8,
-                  ),
+                  borderRadius: BorderRadius.circular(10),
+                  child: LinearProgressIndicator(value: progress, minHeight: 8),
                 ),
 
                 const SizedBox(height: 10),
@@ -503,22 +405,16 @@ class _ScanControlCard
                   children: [
                     Text(
                       '${(progress * 100).round()}%',
-                      style: theme
-                          .textTheme
-                          .labelLarge
-                          ?.copyWith(
-                            fontWeight:
-                                FontWeight.bold,
-                          ),
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
 
                     const Spacer(),
 
                     Text(
                       '${provider.devices.length} devices found',
-                      style: theme
-                          .textTheme
-                          .bodySmall,
+                      style: theme.textTheme.bodySmall,
                     ),
                   ],
                 ),
@@ -535,65 +431,47 @@ class _ScanControlCard
 // DEVICES SECTION
 // ============================================================
 
-class _DevicesSection
-    extends StatelessWidget {
+class _DevicesSection extends StatelessWidget {
   final NetworkProvider provider;
   final List<NetworkDevice> devices;
 
-  const _DevicesSection({
-    required this.provider,
-    required this.devices,
-  });
+  const _DevicesSection({required this.provider, required this.devices});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colors =
-        theme.colorScheme;
+    final colors = theme.colorScheme;
 
     if (provider.scanningDevices) {
       return GlassCard(
         child: Padding(
-          padding:
-              const EdgeInsets.all(40),
+          padding: const EdgeInsets.all(40),
           child: Center(
             child: Column(
               children: [
                 const SizedBox(
                   width: 42,
                   height: 42,
-                  child:
-                      CircularProgressIndicator(
-                    strokeWidth: 3,
-                  ),
+                  child: CircularProgressIndicator(strokeWidth: 3),
                 ),
 
                 const SizedBox(height: 18),
 
                 Text(
                   'Scanning network devices...',
-                  style: theme
-                      .textTheme
-                      .titleMedium
-                      ?.copyWith(
-                        fontWeight:
-                            FontWeight.bold,
-                      ),
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
 
                 const SizedBox(height: 6),
 
                 Text(
                   'Please wait while Network Doctor checks the local network.',
-                  textAlign:
-                      TextAlign.center,
-                  style: theme
-                      .textTheme
-                      .bodySmall
-                      ?.copyWith(
-                        color: colors
-                            .onSurfaceVariant,
-                      ),
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: colors.onSurfaceVariant,
+                  ),
                 ),
               ],
             ),
@@ -605,29 +483,21 @@ class _DevicesSection
     if (devices.isEmpty) {
       return GlassCard(
         child: Padding(
-          padding:
-              const EdgeInsets.all(42),
+          padding: const EdgeInsets.all(42),
           child: Center(
             child: Column(
               children: [
                 Container(
                   width: 72,
                   height: 72,
-                  decoration:
-                      BoxDecoration(
-                    shape:
-                        BoxShape.circle,
-                    color: colors.primary
-                        .withValues(
-                      alpha: 0.10,
-                    ),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: colors.primary.withValues(alpha: 0.10),
                   ),
                   child: Icon(
-                    Icons
-                        .devices_other_rounded,
+                    Icons.devices_other_rounded,
                     size: 36,
-                    color:
-                        colors.primary,
+                    color: colors.primary,
                   ),
                 ),
 
@@ -635,28 +505,19 @@ class _DevicesSection
 
                 Text(
                   'No Devices Found',
-                  style: theme
-                      .textTheme
-                      .titleLarge
-                      ?.copyWith(
-                        fontWeight:
-                            FontWeight.bold,
-                      ),
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
 
                 const SizedBox(height: 7),
 
                 Text(
                   'Run a network scan to discover devices.',
-                  textAlign:
-                      TextAlign.center,
-                  style: theme
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(
-                        color: colors
-                            .onSurfaceVariant,
-                      ),
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: colors.onSurfaceVariant,
+                  ),
                 ),
               ],
             ),
@@ -665,63 +526,37 @@ class _DevicesSection
       );
     }
 
-    final onlineDevices =
-        devices
-            .where(
-              (device) =>
-                  device.reachable,
-            )
-            .toList();
+    final onlineDevices = devices.where((device) => device.reachable).toList();
 
-    final offlineDevices =
-        devices
-            .where(
-              (device) =>
-                  !device.reachable,
-            )
-            .toList();
+    final offlineDevices = devices
+        .where((device) => !device.reachable)
+        .toList();
 
     return Column(
-      crossAxisAlignment:
-          CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
             Expanded(
               child: Text(
                 'Scanned Hosts',
-                style: theme
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(
-                      fontWeight:
-                          FontWeight.bold,
-                    ),
+                style: theme.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
 
             Container(
-              padding:
-                  const EdgeInsets.symmetric(
-                horizontal: 11,
-                vertical: 6,
-              ),
-              decoration:
-                  BoxDecoration(
-                color:
-                    colors.primaryContainer,
-                borderRadius:
-                    BorderRadius.circular(
-                  20,
-                ),
+              padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 6),
+              decoration: BoxDecoration(
+                color: colors.primaryContainer,
+                borderRadius: BorderRadius.circular(20),
               ),
               child: Text(
                 '${devices.length}',
                 style: TextStyle(
-                  color: colors
-                      .onPrimaryContainer,
-                  fontWeight:
-                      FontWeight.bold,
+                  color: colors.onPrimaryContainer,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
@@ -732,25 +567,17 @@ class _DevicesSection
 
         if (onlineDevices.isNotEmpty) ...[
           _SectionTitle(
-            icon:
-                Icons.check_circle_rounded,
+            icon: Icons.check_circle_rounded,
             title: 'Online Devices',
-            count:
-                onlineDevices.length,
+            count: onlineDevices.length,
           ),
 
           const SizedBox(height: 10),
 
           ...onlineDevices.map(
             (device) => Padding(
-              padding:
-                  const EdgeInsets.only(
-                bottom: 12,
-              ),
-              child:
-                  _DeviceCard(
-                device: device,
-              ),
+              padding: const EdgeInsets.only(bottom: 12),
+              child: _DeviceCard(device: device),
             ),
           ),
         ],
@@ -759,25 +586,17 @@ class _DevicesSection
           const SizedBox(height: 12),
 
           _SectionTitle(
-            icon:
-                Icons.cloud_off_rounded,
+            icon: Icons.cloud_off_rounded,
             title: 'Offline Hosts',
-            count:
-                offlineDevices.length,
+            count: offlineDevices.length,
           ),
 
           const SizedBox(height: 10),
 
           ...offlineDevices.map(
             (device) => Padding(
-              padding:
-                  const EdgeInsets.only(
-                bottom: 12,
-              ),
-              child:
-                  _DeviceCard(
-                device: device,
-              ),
+              padding: const EdgeInsets.only(bottom: 12),
+              child: _DeviceCard(device: device),
             ),
           ),
         ],
@@ -790,8 +609,7 @@ class _DevicesSection
 // SECTION TITLE
 // ============================================================
 
-class _SectionTitle
-    extends StatelessWidget {
+class _SectionTitle extends StatelessWidget {
   final IconData icon;
   final String title;
   final int count;
@@ -805,54 +623,34 @@ class _SectionTitle
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colors =
-        theme.colorScheme;
+    final colors = theme.colorScheme;
 
     return Row(
       children: [
-        Icon(
-          icon,
-          size: 20,
-          color: colors.primary,
-        ),
+        Icon(icon, size: 20, color: colors.primary),
 
         const SizedBox(width: 8),
 
         Text(
           title,
-          style: theme
-              .textTheme
-              .titleMedium
-              ?.copyWith(
-                fontWeight:
-                    FontWeight.bold,
-              ),
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
         ),
 
         const SizedBox(width: 8),
 
         Container(
-          padding:
-              const EdgeInsets.symmetric(
-            horizontal: 8,
-            vertical: 3,
-          ),
-          decoration:
-              BoxDecoration(
-            color: colors
-                .surfaceContainerHighest,
-            borderRadius:
-                BorderRadius.circular(12),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+          decoration: BoxDecoration(
+            color: colors.surfaceContainerHighest,
+            borderRadius: BorderRadius.circular(12),
           ),
           child: Text(
             '$count',
-            style: theme
-                .textTheme
-                .labelMedium
-                ?.copyWith(
-                  fontWeight:
-                      FontWeight.bold,
-                ),
+            style: theme.textTheme.labelMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ],
@@ -864,161 +662,97 @@ class _SectionTitle
 // DEVICE CARD
 // ============================================================
 
-class _DeviceCard
-    extends StatelessWidget {
+class _DeviceCard extends StatelessWidget {
   final NetworkDevice device;
 
-  const _DeviceCard({
-    required this.device,
-  });
+  const _DeviceCard({required this.device});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colors =
-        theme.colorScheme;
+    final colors = theme.colorScheme;
 
-    final isOnline =
-        device.reachable;
+    final isOnline = device.reachable;
 
-    final hostname =
-        device.hostName
-                ?.trim()
-                .isNotEmpty ==
-            true
+    final hostname = device.hostName?.trim().isNotEmpty == true
         ? device.hostName!
         : 'Unknown Device';
 
-    final latency =
-        device.latency != null
-            ? '${device.latency} ms'
-            : 'N/A';
+    final latency = device.latency != null ? '${device.latency} ms' : 'N/A';
 
     return GlassCard(
       child: LayoutBuilder(
-        builder:
-            (context, constraints) {
-          final compact =
-              constraints.maxWidth < 600;
+        builder: (context, constraints) {
+          final compact = constraints.maxWidth < 600;
 
-          final icon =
-              Container(
+          final icon = Container(
             width: 50,
             height: 50,
-            decoration:
-                BoxDecoration(
-              borderRadius:
-                  BorderRadius.circular(
-                15,
-              ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
               color: isOnline
-                  ? colors.primary
-                      .withValues(
-                      alpha: 0.10,
-                    )
-                  : colors.error
-                      .withValues(
-                      alpha: 0.08,
-                    ),
+                  ? colors.primary.withValues(alpha: 0.10)
+                  : colors.error.withValues(alpha: 0.08),
             ),
             child: Icon(
               _deviceIcon(hostname),
-              color: isOnline
-                  ? colors.primary
-                  : colors.error,
+              color: isOnline ? colors.primary : colors.error,
               size: 25,
             ),
           );
 
-          final information =
-              Expanded(
+          final information = Expanded(
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment
-                      .start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   hostname,
                   maxLines: 1,
-                  overflow:
-                      TextOverflow
-                          .ellipsis,
-                  style: theme
-                      .textTheme
-                      .titleMedium
-                      ?.copyWith(
-                        fontWeight:
-                            FontWeight
-                                .bold,
-                      ),
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
 
                 const SizedBox(height: 5),
 
                 Text(
                   device.ip,
-                  style: theme
-                      .textTheme
-                      .bodySmall
-                      ?.copyWith(
-                        color: colors
-                            .onSurfaceVariant,
-                      ),
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: colors.onSurfaceVariant,
+                  ),
                 ),
 
                 if (!isOnline) ...[
                   const SizedBox(height: 3),
                   Text(
                     'Host did not respond',
-                    style: theme
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(
-                          color:
-                              colors.error,
-                        ),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: colors.error,
+                    ),
                   ),
                 ],
               ],
             ),
           );
 
-          final status =
-              Column(
-            mainAxisSize:
-                MainAxisSize.min,
-            crossAxisAlignment:
-                CrossAxisAlignment
-                    .end,
+          final status = Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               StatusChip(
-                label: isOnline
-                    ? 'ONLINE'
-                    : 'OFFLINE',
-                status: isOnline
-                    ? StatusType
-                        .healthy
-                    : StatusType
-                        .error,
+                label: isOnline ? 'ONLINE' : 'OFFLINE',
+                status: isOnline ? StatusType.healthy : StatusType.error,
               ),
 
               const SizedBox(height: 5),
 
               Text(
                 latency,
-                style: theme
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(
-                      fontWeight:
-                          FontWeight
-                              .bold,
-                      color: isOnline
-                          ? colors
-                              .primary
-                          : colors
-                              .error,
-                    ),
+                style: theme.textTheme.bodySmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: isOnline ? colors.primary : colors.error,
+                ),
               ),
             ],
           );
@@ -1026,27 +760,13 @@ class _DeviceCard
           if (compact) {
             return Column(
               children: [
-                Row(
-                  children: [
-                    icon,
-                    const SizedBox(
-                      width: 14,
-                    ),
-                    information,
-                  ],
-                ),
+                Row(children: [icon, const SizedBox(width: 14), information]),
 
-                const SizedBox(
-                  height: 14,
-                ),
+                const SizedBox(height: 14),
 
                 Row(
-                  mainAxisAlignment:
-                      MainAxisAlignment
-                          .end,
-                  children: [
-                    status,
-                  ],
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [status],
                 ),
               ],
             );
@@ -1055,13 +775,9 @@ class _DeviceCard
           return Row(
             children: [
               icon,
-              const SizedBox(
-                width: 14,
-              ),
+              const SizedBox(width: 14),
               information,
-              const SizedBox(
-                width: 16,
-              ),
+              const SizedBox(width: 16),
               status,
             ],
           );
@@ -1070,40 +786,31 @@ class _DeviceCard
     );
   }
 
-  IconData _deviceIcon(
-    String name,
-  ) {
-    final value =
-        name.toLowerCase();
+  IconData _deviceIcon(String name) {
+    final value = name.toLowerCase();
 
-    if (value.contains('router') ||
-        value.contains('gateway')) {
-      return Icons
-          .router_rounded;
+    if (value.contains('router') || value.contains('gateway')) {
+      return Icons.router_rounded;
     }
 
     if (value.contains('phone') ||
         value.contains('android') ||
         value.contains('iphone')) {
-      return Icons
-          .smartphone_rounded;
+      return Icons.smartphone_rounded;
     }
 
     if (value.contains('laptop')) {
-      return Icons
-          .laptop_rounded;
+      return Icons.laptop_rounded;
     }
 
     if (value.contains('printer')) {
-      return Icons
-          .print_rounded;
+      return Icons.print_rounded;
     }
 
     if (value.contains('tv')) {
       return Icons.tv_rounded;
     }
 
-    return Icons
-        .devices_other_rounded;
+    return Icons.devices_other_rounded;
   }
 }

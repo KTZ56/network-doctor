@@ -9,23 +9,18 @@ class AboutScreen extends StatelessWidget {
     final colors = theme.colorScheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('About Network Doctor'),
-      ),
+      appBar: AppBar(title: const Text('About Network Doctor')),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
           child: Center(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxWidth: 850,
-              ),
+              constraints: const BoxConstraints(maxWidth: 850),
               child: Column(
                 children: [
                   // ==================================================
                   // LOGO
                   // ==================================================
-
                   Container(
                     width: 120,
                     height: 120,
@@ -33,9 +28,7 @@ class AboutScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: colors.surfaceContainerHighest,
                       borderRadius: BorderRadius.circular(30),
-                      border: Border.all(
-                        color: colors.outlineVariant,
-                      ),
+                      border: Border.all(color: colors.outlineVariant),
                     ),
                     clipBehavior: Clip.antiAlias,
                     child: Image.asset(
@@ -68,14 +61,11 @@ class AboutScreen extends StatelessWidget {
                   // ==================================================
                   // APPLICATION INFORMATION
                   // ==================================================
-
                   Card(
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(22),
-                      side: BorderSide(
-                        color: colors.outlineVariant,
-                      ),
+                      side: BorderSide(color: colors.outlineVariant),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(24),
@@ -121,7 +111,6 @@ class AboutScreen extends StatelessWidget {
                   // ==================================================
                   // DESCRIPTION
                   // ==================================================
-
                   Card(
                     elevation: 0,
                     color: colors.surfaceContainerHighest,
@@ -131,8 +120,7 @@ class AboutScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(24),
                       child: Column(
-                        crossAxisAlignment:
-                            CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
@@ -143,8 +131,7 @@ class AboutScreen extends StatelessWidget {
                               const SizedBox(width: 10),
                               Text(
                                 'About the Application',
-                                style: theme.textTheme.titleLarge
-                                    ?.copyWith(
+                                style: theme.textTheme.titleLarge?.copyWith(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -178,29 +165,20 @@ class AboutScreen extends StatelessWidget {
                   // ==================================================
                   // RESPONSIBLE USE
                   // ==================================================
-
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(18),
                     decoration: BoxDecoration(
-                      color: colors.primaryContainer.withValues(
-                        alpha: 0.45,
-                      ),
+                      color: colors.primaryContainer.withValues(alpha: 0.45),
                       borderRadius: BorderRadius.circular(18),
                       border: Border.all(
-                        color: colors.primary.withValues(
-                          alpha: 0.12,
-                        ),
+                        color: colors.primary.withValues(alpha: 0.12),
                       ),
                     ),
                     child: Row(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(
-                          Icons.security_rounded,
-                          color: colors.primary,
-                        ),
+                        Icon(Icons.security_rounded, color: colors.primary),
                         const SizedBox(width: 12),
                         Expanded(
                           child: Text(
@@ -251,19 +229,15 @@ class _AboutRow extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 16),
       child: Row(
         children: [
-          Icon(
-            icon,
-            size: 20,
-            color: colors.primary,
-          ),
+          Icon(icon, size: 20, color: colors.primary),
           const SizedBox(width: 12),
           SizedBox(
             width: 110,
             child: Text(
               title,
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w600),
             ),
           ),
           const SizedBox(width: 12),

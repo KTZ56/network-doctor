@@ -5,11 +5,11 @@ import '../models/ping_result.dart';
 class PingService {
   Future<PingResult> ping(String target) async {
     try {
-      final result = await Process.run(
-        'ping',
-        ['-n', '4', target],
-        runInShell: true,
-      );
+      final result = await Process.run('ping', [
+        '-n',
+        '4',
+        target,
+      ], runInShell: true);
 
       final output = result.stdout.toString();
 
@@ -43,10 +43,7 @@ class PingService {
   }
 
   int? _extractAverageLatency(String output) {
-    final regex = RegExp(
-      r'Average = (\d+)ms',
-      caseSensitive: false,
-    );
+    final regex = RegExp(r'Average = (\d+)ms', caseSensitive: false);
 
     final match = regex.firstMatch(output);
 

@@ -3,22 +3,8 @@ import 'dart:io';
 import '../models/port_scan_result.dart';
 
 class PortScannerService {
-  Future<PortScanResult> scan(
-    String host,
-  ) async {
-    final commonPorts = [
-      20,
-      21,
-      22,
-      23,
-      25,
-      53,
-      80,
-      110,
-      143,
-      443,
-      3389,
-    ];
+  Future<PortScanResult> scan(String host) async {
+    final commonPorts = [20, 21, 22, 23, 25, 53, 80, 110, 143, 443, 3389];
 
     final results = <PortResult>[];
 
@@ -26,13 +12,10 @@ class PortScannerService {
       bool open = false;
 
       try {
-        final socket =
-            await Socket.connect(
+        final socket = await Socket.connect(
           host,
           port,
-          timeout: const Duration(
-            seconds: 1,
-          ),
+          timeout: const Duration(seconds: 1),
         );
 
         open = true;
@@ -42,17 +25,9 @@ class PortScannerService {
         open = false;
       }
 
-      results.add(
-        PortResult(
-          port: port,
-          open: open,
-        ),
-      );
+      results.add(PortResult(port: port, open: open));
     }
 
-    return PortScanResult(
-      host: host,
-      ports: results,
-    );
+    return PortScanResult(host: host, ports: results);
   }
 }

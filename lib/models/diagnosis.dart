@@ -1,8 +1,4 @@
-enum DiagnosisLevel {
-  healthy,
-  warning,
-  critical,
-}
+enum DiagnosisLevel { healthy, warning, critical }
 
 class Diagnosis {
   final DiagnosisLevel level;

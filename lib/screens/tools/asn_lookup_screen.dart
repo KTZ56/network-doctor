@@ -14,8 +14,9 @@ class AsnLookupScreen extends StatefulWidget {
 }
 
 class _AsnLookupScreenState extends State<AsnLookupScreen> {
-  final TextEditingController _asnController =
-      TextEditingController(text: 'AS22612');
+  final TextEditingController _asnController = TextEditingController(
+    text: 'AS22612',
+  );
 
   @override
   void dispose() {
@@ -27,11 +28,9 @@ class _AsnLookupScreenState extends State<AsnLookupScreen> {
     final input = _asnController.text.trim();
 
     if (input.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please enter an ASN.'),
-        ),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Please enter an ASN.')));
       return;
     }
 
@@ -61,16 +60,13 @@ class _AsnLookupScreenState extends State<AsnLookupScreen> {
           padding: const EdgeInsets.all(24),
           child: Center(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxWidth: 1100,
-              ),
+              constraints: const BoxConstraints(maxWidth: 1100),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // =====================================================
                   // HEADER
                   // =====================================================
-
                   Row(
                     children: [
                       Container(
@@ -79,10 +75,7 @@ class _AsnLookupScreenState extends State<AsnLookupScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(18),
                           gradient: LinearGradient(
-                            colors: [
-                              colors.primary,
-                              colors.secondary,
-                            ],
+                            colors: [colors.primary, colors.secondary],
                           ),
                         ),
                         child: Icon(
@@ -94,13 +87,11 @@ class _AsnLookupScreenState extends State<AsnLookupScreen> {
                       const SizedBox(width: 16),
                       Expanded(
                         child: Column(
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'ASN Lookup',
-                              style: theme.textTheme.headlineSmall
-                                  ?.copyWith(
+                              style: theme.textTheme.headlineSmall?.copyWith(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -120,25 +111,19 @@ class _AsnLookupScreenState extends State<AsnLookupScreen> {
                   // =====================================================
                   // SEARCH CARD
                   // =====================================================
-
                   GlassCard(
                     child: Padding(
                       padding: const EdgeInsets.all(22),
                       child: Column(
-                        crossAxisAlignment:
-                            CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
-                              Icon(
-                                Icons.search_rounded,
-                                color: colors.primary,
-                              ),
+                              Icon(Icons.search_rounded, color: colors.primary),
                               const SizedBox(width: 10),
                               Text(
                                 'ASN Lookup',
-                                style: theme.textTheme.titleLarge
-                                    ?.copyWith(
+                                style: theme.textTheme.titleLarge?.copyWith(
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -161,10 +146,8 @@ class _AsnLookupScreenState extends State<AsnLookupScreen> {
                                   children: [
                                     TextField(
                                       controller: _asnController,
-                                      enabled:
-                                          !provider.testingAsn,
-                                      textInputAction:
-                                          TextInputAction.search,
+                                      enabled: !provider.testingAsn,
+                                      textInputAction: TextInputAction.search,
                                       onSubmitted: (_) {
                                         if (!provider.testingAsn) {
                                           _runLookup(provider);
@@ -172,8 +155,7 @@ class _AsnLookupScreenState extends State<AsnLookupScreen> {
                                       },
                                       decoration: const InputDecoration(
                                         labelText: 'ASN',
-                                        hintText:
-                                            'AS22612 or 22612',
+                                        hintText: 'AS22612 or 22612',
                                         prefixIcon: Icon(
                                           Icons.account_tree_outlined,
                                         ),
@@ -186,10 +168,8 @@ class _AsnLookupScreenState extends State<AsnLookupScreen> {
                                       width: double.infinity,
                                       height: 52,
                                       child: _LookupButton(
-                                        loading:
-                                            provider.testingAsn,
-                                        onPressed: () =>
-                                            _runLookup(provider),
+                                        loading: provider.testingAsn,
+                                        onPressed: () => _runLookup(provider),
                                       ),
                                     ),
                                   ],
@@ -201,20 +181,16 @@ class _AsnLookupScreenState extends State<AsnLookupScreen> {
                                   Expanded(
                                     child: TextField(
                                       controller: _asnController,
-                                      enabled:
-                                          !provider.testingAsn,
-                                      textInputAction:
-                                          TextInputAction.search,
+                                      enabled: !provider.testingAsn,
+                                      textInputAction: TextInputAction.search,
                                       onSubmitted: (_) {
                                         if (!provider.testingAsn) {
                                           _runLookup(provider);
                                         }
                                       },
-                                      decoration:
-                                          const InputDecoration(
+                                      decoration: const InputDecoration(
                                         labelText: 'ASN',
-                                        hintText:
-                                            'AS22612 or 22612',
+                                        hintText: 'AS22612 or 22612',
                                         prefixIcon: Icon(
                                           Icons.account_tree_outlined,
                                         ),
@@ -227,10 +203,8 @@ class _AsnLookupScreenState extends State<AsnLookupScreen> {
                                   SizedBox(
                                     height: 56,
                                     child: _LookupButton(
-                                      loading:
-                                          provider.testingAsn,
-                                      onPressed: () =>
-                                          _runLookup(provider),
+                                      loading: provider.testingAsn,
+                                      onPressed: () => _runLookup(provider),
                                     ),
                                   ),
                                 ],
@@ -247,7 +221,6 @@ class _AsnLookupScreenState extends State<AsnLookupScreen> {
                   // =====================================================
                   // LOADING
                   // =====================================================
-
                   if (provider.testingAsn)
                     GlassCard(
                       child: Padding(
@@ -265,21 +238,17 @@ class _AsnLookupScreenState extends State<AsnLookupScreen> {
                             const SizedBox(width: 16),
                             Expanded(
                               child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     'Looking up ASN',
                                     style: theme.textTheme.titleMedium
-                                        ?.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                        ?.copyWith(fontWeight: FontWeight.bold),
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
                                     'Retrieving network information...',
-                                    style:
-                                        theme.textTheme.bodySmall,
+                                    style: theme.textTheme.bodySmall,
                                   ),
                                 ],
                               ),
@@ -292,9 +261,7 @@ class _AsnLookupScreenState extends State<AsnLookupScreen> {
                   // =====================================================
                   // RESULT
                   // =====================================================
-
-                  if (result != null &&
-                      !provider.testingAsn) ...[
+                  if (result != null && !provider.testingAsn) ...[
                     const SizedBox(height: 4),
                     _AsnResultCard(result: result),
                   ],
@@ -316,10 +283,7 @@ class _LookupButton extends StatelessWidget {
   final bool loading;
   final VoidCallback onPressed;
 
-  const _LookupButton({
-    required this.loading,
-    required this.onPressed,
-  });
+  const _LookupButton({required this.loading, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -329,14 +293,10 @@ class _LookupButton extends StatelessWidget {
           ? const SizedBox(
               width: 18,
               height: 18,
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-              ),
+              child: CircularProgressIndicator(strokeWidth: 2),
             )
           : const Icon(Icons.search_rounded),
-      label: Text(
-        loading ? 'Looking up...' : 'Lookup ASN',
-      ),
+      label: Text(loading ? 'Looking up...' : 'Lookup ASN'),
     );
   }
 }
@@ -348,9 +308,7 @@ class _LookupButton extends StatelessWidget {
 class _AsnResultCard extends StatelessWidget {
   final AsnResult result;
 
-  const _AsnResultCard({
-    required this.result,
-  });
+  const _AsnResultCard({required this.result});
 
   @override
   Widget build(BuildContext context) {
@@ -368,7 +326,6 @@ class _AsnResultCard extends StatelessWidget {
             // =====================================================
             // RESULT HEADER
             // =====================================================
-
             Row(
               children: [
                 Container(
@@ -381,11 +338,8 @@ class _AsnResultCard extends StatelessWidget {
                         : colors.error.withValues(alpha: 0.12),
                   ),
                   child: Icon(
-                    success
-                        ? Icons.check_circle_rounded
-                        : Icons.error_rounded,
-                    color:
-                        success ? Colors.green : colors.error,
+                    success ? Icons.check_circle_rounded : Icons.error_rounded,
+                    color: success ? Colors.green : colors.error,
                     size: 30,
                   ),
                 ),
@@ -394,8 +348,7 @@ class _AsnResultCard extends StatelessWidget {
 
                 Expanded(
                   child: Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'ASN Lookup Result',
@@ -416,25 +369,20 @@ class _AsnResultCard extends StatelessWidget {
 
                 StatusChip(
                   label: success ? 'SUCCESS' : 'FAILED',
-                  status: success
-                      ? StatusType.healthy
-                      : StatusType.error,
+                  status: success ? StatusType.healthy : StatusType.error,
                 ),
               ],
             ),
 
             const SizedBox(height: 24),
 
-            Divider(
-              color: colors.outlineVariant,
-            ),
+            Divider(color: colors.outlineVariant),
 
             const SizedBox(height: 20),
 
             // =====================================================
             // NETWORK INFORMATION
             // =====================================================
-
             Text(
               'Network Information',
               style: theme.textTheme.titleMedium?.copyWith(
@@ -450,9 +398,7 @@ class _AsnResultCard extends StatelessWidget {
 
                 final columns = width >= 750 ? 2 : 1;
 
-                final itemWidth = columns == 2
-                    ? (width - 12) / 2
-                    : width;
+                final itemWidth = columns == 2 ? (width - 12) / 2 : width;
 
                 return Wrap(
                   spacing: 12,
@@ -485,8 +431,7 @@ class _AsnResultCard extends StatelessWidget {
                       child: _InfoTile(
                         icon: Icons.storage_rounded,
                         title: 'IPv4 Address Count',
-                        value:
-                            _formatNumber(result.ipv4Count),
+                        value: _formatNumber(result.ipv4Count),
                         color: colors.primary,
                       ),
                     ),
@@ -496,9 +441,7 @@ class _AsnResultCard extends StatelessWidget {
                       child: _InfoTile(
                         icon: Icons.language_rounded,
                         title: 'IPv6 Prefix Count',
-                        value: _formatNumber(
-                          result.ipv6PrefixCount,
-                        ),
+                        value: _formatNumber(result.ipv6PrefixCount),
                         color: colors.secondary,
                       ),
                     ),
@@ -512,7 +455,6 @@ class _AsnResultCard extends StatelessWidget {
             // =====================================================
             // BGP PREFIXES
             // =====================================================
-
             Row(
               children: [
                 Expanded(
@@ -532,14 +474,12 @@ class _AsnResultCard extends StatelessWidget {
                     ),
                     decoration: BoxDecoration(
                       color: colors.primaryContainer,
-                      borderRadius:
-                          BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
                       '${result.cidrs.length}',
                       style: TextStyle(
-                        color:
-                            colors.onPrimaryContainer,
+                        color: colors.onPrimaryContainer,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -556,13 +496,8 @@ class _AsnResultCard extends StatelessWidget {
                 children: result.cidrs
                     .map(
                       (prefix) => Padding(
-                        padding:
-                            const EdgeInsets.only(
-                          bottom: 10,
-                        ),
-                        child: _PrefixTile(
-                          prefix: prefix,
-                        ),
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: _PrefixTile(prefix: prefix),
                       ),
                     )
                     .toList(),
@@ -573,30 +508,24 @@ class _AsnResultCard extends StatelessWidget {
             // =====================================================
             // MESSAGE
             // =====================================================
-
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: success
-                    ? colors.primaryContainer
-                        .withValues(alpha: 0.45)
-                    : colors.errorContainer
-                        .withValues(alpha: 0.45),
+                    ? colors.primaryContainer.withValues(alpha: 0.45)
+                    : colors.errorContainer.withValues(alpha: 0.45),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Row(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Icon(
                     success
                         ? Icons.info_outline_rounded
                         : Icons.warning_amber_rounded,
                     size: 20,
-                    color: success
-                        ? colors.primary
-                        : colors.error,
+                    color: success ? colors.primary : colors.error,
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -616,9 +545,9 @@ class _AsnResultCard extends StatelessWidget {
 
   static String _formatNumber(int number) {
     return number.toString().replaceAllMapped(
-          RegExp(r'\B(?=(\d{3})+(?!\d))'),
-          (match) => ',',
-        );
+      RegExp(r'\B(?=(\d{3})+(?!\d))'),
+      (match) => ',',
+    );
   }
 }
 
@@ -649,9 +578,7 @@ class _InfoTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: color.withValues(alpha: 0.16),
-        ),
+        border: Border.all(color: color.withValues(alpha: 0.16)),
       ),
       child: Row(
         children: [
@@ -662,24 +589,16 @@ class _InfoTile extends StatelessWidget {
               color: color.withValues(alpha: 0.14),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(
-              icon,
-              color: color,
-              size: 21,
-            ),
+            child: Icon(icon, color: color, size: 21),
           ),
 
           const SizedBox(width: 12),
 
           Expanded(
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: theme.textTheme.labelMedium,
-                ),
+                Text(title, style: theme.textTheme.labelMedium),
                 const SizedBox(height: 4),
                 Text(
                   value,
@@ -719,10 +638,7 @@ class _EmptyPrefixCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(
-            Icons.route_rounded,
-            color: colors.onSurfaceVariant,
-          ),
+          Icon(Icons.route_rounded, color: colors.onSurfaceVariant),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
@@ -745,9 +661,7 @@ class _EmptyPrefixCard extends StatelessWidget {
 class _PrefixTile extends StatelessWidget {
   final AsnPrefix prefix;
 
-  const _PrefixTile({
-    required this.prefix,
-  });
+  const _PrefixTile({required this.prefix});
 
   @override
   Widget build(BuildContext context) {
@@ -762,8 +676,7 @@ class _PrefixTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
-        crossAxisAlignment:
-            CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: 42,
@@ -783,8 +696,7 @@ class _PrefixTile extends StatelessWidget {
 
           Expanded(
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   prefix.cidr,

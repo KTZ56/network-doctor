@@ -59,8 +59,7 @@ class _PortScannerScreenState extends State<PortScannerScreen> {
 
               const SizedBox(height: 24),
 
-              if (provider.portScanning)
-                _buildScanningCard(context),
+              if (provider.portScanning) _buildScanningCard(context),
 
               if (result != null) ...[
                 _buildStats(
@@ -99,17 +98,10 @@ class _PortScannerScreenState extends State<PortScannerScreen> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             gradient: LinearGradient(
-              colors: [
-                colorScheme.primary,
-                colorScheme.secondary,
-              ],
+              colors: [colorScheme.primary, colorScheme.secondary],
             ),
           ),
-          child: Icon(
-            Icons.radar,
-            color: colorScheme.onPrimary,
-            size: 30,
-          ),
+          child: Icon(Icons.radar, color: colorScheme.onPrimary, size: 30),
         ),
         const SizedBox(width: 16),
         Expanded(
@@ -118,12 +110,9 @@ class _PortScannerScreenState extends State<PortScannerScreen> {
             children: [
               Text(
                 'Port Scanner',
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineMedium
-                    ?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(height: 4),
               Text(
@@ -141,10 +130,7 @@ class _PortScannerScreenState extends State<PortScannerScreen> {
   // TARGET CARD
   // ============================================================
 
-  Widget _buildTargetCard(
-    BuildContext context,
-    NetworkProvider provider,
-  ) {
+  Widget _buildTargetCard(BuildContext context, NetworkProvider provider) {
     final colorScheme = Theme.of(context).colorScheme;
 
     return GlassCard(
@@ -160,10 +146,7 @@ class _PortScannerScreenState extends State<PortScannerScreen> {
                   borderRadius: BorderRadius.circular(12),
                   color: colorScheme.primary.withValues(alpha: 0.12),
                 ),
-                child: Icon(
-                  Icons.dns,
-                  color: colorScheme.primary,
-                ),
+                child: Icon(Icons.dns, color: colorScheme.primary),
               ),
               const SizedBox(width: 14),
               Column(
@@ -171,12 +154,9 @@ class _PortScannerScreenState extends State<PortScannerScreen> {
                 children: [
                   Text(
                     'Scan Target',
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium
-                        ?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 3),
                   Text(
@@ -252,14 +232,10 @@ class _PortScannerScreenState extends State<PortScannerScreen> {
           ? const SizedBox(
               width: 18,
               height: 18,
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-              ),
+              child: CircularProgressIndicator(strokeWidth: 2),
             )
           : const Icon(Icons.search),
-      label: Text(
-        provider.portScanning ? 'Scanning...' : 'Scan Ports',
-      ),
+      label: Text(provider.portScanning ? 'Scanning...' : 'Scan Ports'),
     );
   }
 
@@ -278,12 +254,9 @@ class _PortScannerScreenState extends State<PortScannerScreen> {
               const SizedBox(height: 16),
               Text(
                 'Scanning ports...',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium
-                    ?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6),
               Text(
@@ -310,21 +283,9 @@ class _PortScannerScreenState extends State<PortScannerScreen> {
     return LayoutBuilder(
       builder: (context, constraints) {
         final cards = [
-          _StatData(
-            title: 'Ports Scanned',
-            value: '$total',
-            icon: Icons.hub,
-          ),
-          _StatData(
-            title: 'Open',
-            value: '$open',
-            icon: Icons.lock_open,
-          ),
-          _StatData(
-            title: 'Closed',
-            value: '$closed',
-            icon: Icons.lock,
-          ),
+          _StatData(title: 'Ports Scanned', value: '$total', icon: Icons.hub),
+          _StatData(title: 'Open', value: '$open', icon: Icons.lock_open),
+          _StatData(title: 'Closed', value: '$closed', icon: Icons.lock),
         ];
 
         if (constraints.maxWidth < 600) {
@@ -360,30 +321,22 @@ class _PortScannerScreenState extends State<PortScannerScreen> {
   // RESULTS
   // ============================================================
 
-  Widget _buildResults(
-    BuildContext context,
-    dynamic result,
-  ) {
+  Widget _buildResults(BuildContext context, dynamic result) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Scan Results',
-          style: Theme.of(context)
-              .textTheme
-              .titleLarge
-              ?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
 
         GlassCard(
           child: Column(
             children: [
-              ...result.ports.map(
-                (port) => _PortResultRow(port: port),
-              ),
+              ...result.ports.map((port) => _PortResultRow(port: port)),
             ],
           ),
         ),
@@ -405,20 +358,16 @@ class _PortScannerScreenState extends State<PortScannerScreen> {
               Icon(
                 Icons.radar,
                 size: 56,
-                color: Theme.of(context)
-                    .colorScheme
-                    .onSurface
-                    .withValues(alpha: 0.4),
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.4),
               ),
               const SizedBox(height: 16),
               Text(
                 'Ready to Scan',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6),
               Text(
@@ -441,18 +390,14 @@ class _PortScannerScreenState extends State<PortScannerScreen> {
 class _PortResultRow extends StatelessWidget {
   final dynamic port;
 
-  const _PortResultRow({
-    required this.port,
-  });
+  const _PortResultRow({required this.port});
 
   @override
   Widget build(BuildContext context) {
     final isOpen = port.open;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-      ),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: [
           Container(
@@ -478,9 +423,7 @@ class _PortResultRow extends StatelessWidget {
               children: [
                 Text(
                   'Port ${port.port}',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 3),
                 Text(
@@ -493,9 +436,7 @@ class _PortResultRow extends StatelessWidget {
 
           StatusChip(
             label: isOpen ? 'OPEN' : 'CLOSED',
-            status: isOpen
-                ? StatusType.healthy
-                : StatusType.error,
+            status: isOpen ? StatusType.healthy : StatusType.error,
           ),
         ],
       ),
@@ -522,9 +463,7 @@ class _StatData {
 class _StatCard extends StatelessWidget {
   final _StatData data;
 
-  const _StatCard({
-    required this.data,
-  });
+  const _StatCard({required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -540,28 +479,19 @@ class _StatCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               color: colorScheme.primary.withValues(alpha: 0.12),
             ),
-            child: Icon(
-              data.icon,
-              color: colorScheme.primary,
-            ),
+            child: Icon(data.icon, color: colorScheme.primary),
           ),
           const SizedBox(width: 14),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                data.title,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
+              Text(data.title, style: Theme.of(context).textTheme.bodySmall),
               const SizedBox(height: 3),
               Text(
                 data.value,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall
-                    ?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),

@@ -57,18 +57,14 @@ class SpeedTestService {
     while (total < bytes) {
       final chunk = min(64 * 1024, bytes - total);
 
-      final data = List<int>.generate(
-        chunk,
-        (_) => random.nextInt(256),
-      );
+      final data = List<int>.generate(chunk, (_) => random.nextInt(256));
 
       total += data.length;
     }
 
     stopwatch.stop();
 
-    final seconds =
-        stopwatch.elapsedMicroseconds / 1000000;
+    final seconds = stopwatch.elapsedMicroseconds / 1000000;
 
     if (seconds <= 0) {
       return 0;
@@ -89,18 +85,14 @@ class SpeedTestService {
     while (total < bytes) {
       final chunk = min(64 * 1024, bytes - total);
 
-      final data = List<int>.generate(
-        chunk,
-        (_) => random.nextInt(256),
-      );
+      final data = List<int>.generate(chunk, (_) => random.nextInt(256));
 
       total += data.length;
     }
 
     stopwatch.stop();
 
-    final seconds =
-        stopwatch.elapsedMicroseconds / 1000000;
+    final seconds = stopwatch.elapsedMicroseconds / 1000000;
 
     if (seconds <= 0) {
       return 0;

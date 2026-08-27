@@ -26,7 +26,6 @@ import '../services/windows_network_service.dart';
 import '../models/traffic_stats.dart';
 import '../services/traffic_monitor_service.dart';
 
-
 class NetworkProvider extends ChangeNotifier {
   // Services
   final WindowsNetworkService _windowsNetworkService = WindowsNetworkService();
@@ -40,9 +39,7 @@ class NetworkProvider extends ChangeNotifier {
   final IpGeolocationService _ipGeolocationService = IpGeolocationService();
   final AsnService _asnService = AsnService();
   final DeviceScannerService _deviceScannerService = DeviceScannerService();
-  final TrafficMonitorService _trafficMonitorService =
-    TrafficMonitorService();
-
+  final TrafficMonitorService _trafficMonitorService = TrafficMonitorService();
 
   // Network State
   NetworkInfo? networkInfo;
@@ -82,16 +79,16 @@ class NetworkProvider extends ChangeNotifier {
 
   TrafficStats? trafficStats;
 
-bool monitoringTraffic = false;
+  bool monitoringTraffic = false;
 
-final List<double> downloadHistory = [];
-final List<double> uploadHistory = [];
+  final List<double> downloadHistory = [];
+  final List<double> uploadHistory = [];
 
   DnsResult? dnsLookupResult;
   bool testingDnsLookup = false;
 
-int deviceScanCompleted = 0;
-int deviceScanTotal = 254;
+  int deviceScanCompleted = 0;
+  int deviceScanTotal = 254;
 
   // Actions
   Future<void> loadNetworkInfo() async {
@@ -274,142 +271,129 @@ int deviceScanTotal = 254;
       notifyListeners();
     }
   }
-Future<void> scanDevices() async {
-  if (scanningDevices) return;
 
-  final info = networkInfo;
+  Future<void> scanDevices() async {
+    if (scanningDevices) return;
 
-  if (info == null || info.ipv4.isEmpty) {
-    error = 'Network information is not available.';
-    notifyListeners();
-    return;
-  }
+    final info = networkInfo;
 
-  scanningDevices = true;
-  devices = [];
-  deviceScanCompleted = 0;
-  deviceScanTotal = 254;
-  error = null;
-
-  notifyListeners();
-
-  try {
-    final parts = info.ipv4.split('.');
-
-    if (parts.length != 4) {
-      throw Exception(
-        'Invalid IPv4 address: ${info.ipv4}',
-      );
+    if (info == null || info.ipv4.isEmpty) {
+      error = 'Network information is not available.';
+      notifyListeners();
+      return;
     }
 
-    final subnet =
-        '${parts[0]}.${parts[1]}.${parts[2]}';
+    scanningDevices = true;
+    devices = [];
+    deviceScanCompleted = 0;
+    deviceScanTotal = 254;
+    error = null;
 
-    final results =
-        await _deviceScannerService.scanSubnet(
-      subnet,
-      onProgress: (completed, total) {
-        deviceScanCompleted = completed;
-        deviceScanTotal = total;
-
-        notifyListeners();
-      },
-    );
-
-    devices = results;
-  } catch (e) {
-    error = 'Device scan failed: $e';
-  } finally {
-    scanningDevices = false;
     notifyListeners();
-  }
-}
 
-Future<void> startTrafficMonitoring() async {
-  if (monitoringTraffic) return;
+    try {
+      final parts = info.ipv4.split('.');
 
-  final info = networkInfo;
-
-  if (info == null ||
-      info.interfaceName.isEmpty ||
-      info.interfaceName == 'Unknown') {
-    error = 'Active network interface is not available.';
-    notifyListeners();
-    return;
-  }
-
-  monitoringTraffic = true;
-
-  trafficStats = TrafficStats.empty(
-    interfaceName: info.interfaceName,
-  );
-
-  downloadHistory.clear();
-  uploadHistory.clear();
-
-  error = null;
-
-  notifyListeners();
-
-  try {
-    await for (
-      final stats in _trafficMonitorService.monitor(
-        info.interfaceName,
-      )
-    ) {
-      if (!monitoringTraffic) {
-        break;
+      if (parts.length != 4) {
+        throw Exception('Invalid IPv4 address: ${info.ipv4}');
       }
 
-      trafficStats = stats;
+      final subnet = '${parts[0]}.${parts[1]}.${parts[2]}';
 
-      downloadHistory.add(
-        stats.downloadMbps,
+      final results = await _deviceScannerService.scanSubnet(
+        subnet,
+        onProgress: (completed, total) {
+          deviceScanCompleted = completed;
+          deviceScanTotal = total;
+
+          notifyListeners();
+        },
       );
 
-      uploadHistory.add(
-        stats.uploadMbps,
-      );
-
-      const maxPoints = 30;
-
-      if (downloadHistory.length > maxPoints) {
-        downloadHistory.removeAt(0);
-      }
-
-      if (uploadHistory.length > maxPoints) {
-        uploadHistory.removeAt(0);
-      }
-
+      devices = results;
+    } catch (e) {
+      error = 'Device scan failed: $e';
+    } finally {
+      scanningDevices = false;
       notifyListeners();
     }
-  } catch (e) {
-    error = 'Traffic monitoring failed: $e';
-  } finally {
+  }
+
+  Future<void> startTrafficMonitoring() async {
+    if (monitoringTraffic) return;
+
+    final info = networkInfo;
+
+    if (info == null ||
+        info.interfaceName.isEmpty ||
+        info.interfaceName == 'Unknown') {
+      error = 'Active network interface is not available.';
+      notifyListeners();
+      return;
+    }
+
+    monitoringTraffic = true;
+
+    trafficStats = TrafficStats.empty(interfaceName: info.interfaceName);
+
+    downloadHistory.clear();
+    uploadHistory.clear();
+
+    error = null;
+
+    notifyListeners();
+
+    try {
+      await for (final stats in _trafficMonitorService.monitor(
+        info.interfaceName,
+      )) {
+        if (!monitoringTraffic) {
+          break;
+        }
+
+        trafficStats = stats;
+
+        downloadHistory.add(stats.downloadMbps);
+
+        uploadHistory.add(stats.uploadMbps);
+
+        const maxPoints = 30;
+
+        if (downloadHistory.length > maxPoints) {
+          downloadHistory.removeAt(0);
+        }
+
+        if (uploadHistory.length > maxPoints) {
+          uploadHistory.removeAt(0);
+        }
+
+        notifyListeners();
+      }
+    } catch (e) {
+      error = 'Traffic monitoring failed: $e';
+    } finally {
+      monitoringTraffic = false;
+      notifyListeners();
+    }
+  }
+
+  void stopTrafficMonitoring() {
+    if (!monitoringTraffic) return;
+
     monitoringTraffic = false;
+
+    _trafficMonitorService.stop();
+
     notifyListeners();
   }
-}
 
-void stopTrafficMonitoring() {
-  if (!monitoringTraffic) return;
+  void clearTrafficStats() {
+    trafficStats = null;
+    downloadHistory.clear();
+    uploadHistory.clear();
 
-  monitoringTraffic = false;
-
-  _trafficMonitorService.stop();
-
-  notifyListeners();
-
-
-}
-
- void clearTrafficStats() {
-  trafficStats = null;
-  downloadHistory.clear();
-  uploadHistory.clear();
-
-  notifyListeners();
-}
+    notifyListeners();
+  }
 
   Future<void> runTraceroute(String destination) async {
     tracerouteTesting = true;
@@ -431,16 +415,15 @@ void stopTrafficMonitoring() {
     }
   }
 
-
   void cancelDeviceScan() {
-  if (!scanningDevices) return;
+    if (!scanningDevices) return;
 
-  _deviceScannerService.cancelScan();
+    _deviceScannerService.cancelScan();
 
-  scanningDevices = false;
+    scanningDevices = false;
 
-  notifyListeners();
-}
+    notifyListeners();
+  }
 
   void clearDiagnostics() {
     gatewayPing = null;

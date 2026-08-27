@@ -6,12 +6,10 @@ class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
 
   @override
-  State<SettingsScreen> createState() =>
-      _SettingsScreenState();
+  State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-class _SettingsScreenState
-    extends State<SettingsScreen> {
+class _SettingsScreenState extends State<SettingsScreen> {
   bool showOfflineDevices = true;
   bool autoRefreshNetwork = false;
 
@@ -36,12 +34,9 @@ class _SettingsScreenState
           children: [
             Center(
               child: ConstrainedBox(
-                constraints: const BoxConstraints(
-                  maxWidth: 900,
-                ),
+                constraints: const BoxConstraints(maxWidth: 900),
                 child: Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Application Settings',
@@ -64,16 +59,13 @@ class _SettingsScreenState
                     // ==================================================
                     // NETWORK SCANNER
                     // ==================================================
-
                     _SettingsSection(
                       title: 'Network Scanner',
                       icon: Icons.radar_rounded,
                       children: [
                         SwitchListTile(
                           contentPadding: EdgeInsets.zero,
-                          title: const Text(
-                            'Show Offline Hosts',
-                          ),
+                          title: const Text('Show Offline Hosts'),
                           subtitle: const Text(
                             'Include unreachable IP addresses in scan results.',
                           ),
@@ -87,9 +79,7 @@ class _SettingsScreenState
 
                         SwitchListTile(
                           contentPadding: EdgeInsets.zero,
-                          title: const Text(
-                            'Automatic Network Refresh',
-                          ),
+                          title: const Text('Automatic Network Refresh'),
                           subtitle: const Text(
                             'Refresh network information automatically.',
                           ),
@@ -108,28 +98,20 @@ class _SettingsScreenState
                     // ==================================================
                     // APPEARANCE
                     // ==================================================
-
                     _SettingsSection(
                       title: 'Appearance',
                       icon: Icons.palette_rounded,
                       children: [
                         ListTile(
                           contentPadding: EdgeInsets.zero,
-                          leading: const Icon(
-                            Icons.brightness_6_rounded,
-                          ),
-                          title: const Text(
-                            'Theme',
-                          ),
+                          leading: const Icon(Icons.brightness_6_rounded),
+                          title: const Text('Theme'),
                           subtitle: const Text(
                             'Theme settings can be managed from the application appearance options.',
                           ),
-                          trailing: const Icon(
-                            Icons.chevron_right_rounded,
-                          ),
+                          trailing: const Icon(Icons.chevron_right_rounded),
                           onTap: () {
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(
+                            ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text(
                                   'Appearance settings will be expanded here.',
@@ -146,31 +128,23 @@ class _SettingsScreenState
                     // ==================================================
                     // ABOUT
                     // ==================================================
-
                     _SettingsSection(
                       title: 'Information',
                       icon: Icons.info_outline_rounded,
                       children: [
                         ListTile(
                           contentPadding: EdgeInsets.zero,
-                          leading: const Icon(
-                            Icons.info_rounded,
-                          ),
-                          title: const Text(
-                            'About Network Doctor',
-                          ),
+                          leading: const Icon(Icons.info_rounded),
+                          title: const Text('About Network Doctor'),
                           subtitle: const Text(
                             'Application information, developer and copyright.',
                           ),
-                          trailing: const Icon(
-                            Icons.chevron_right_rounded,
-                          ),
+                          trailing: const Icon(Icons.chevron_right_rounded),
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) =>
-                                    const AboutScreen(),
+                                builder: (_) => const AboutScreen(),
                               ),
                             );
                           },
@@ -223,15 +197,12 @@ class _SettingsSection extends StatelessWidget {
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(22),
-        side: BorderSide(
-          color: colors.outlineVariant,
-        ),
+        side: BorderSide(color: colors.outlineVariant),
       ),
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
@@ -240,21 +211,16 @@ class _SettingsSection extends StatelessWidget {
                   height: 42,
                   decoration: BoxDecoration(
                     color: colors.primaryContainer,
-                    borderRadius:
-                        BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Icon(
-                    icon,
-                    color: colors.onPrimaryContainer,
-                  ),
+                  child: Icon(icon, color: colors.onPrimaryContainer),
                 ),
 
                 const SizedBox(width: 12),
 
                 Text(
                   title,
-                  style:
-                      theme.textTheme.titleLarge?.copyWith(
+                  style: theme.textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),

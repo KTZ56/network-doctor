@@ -11,14 +11,13 @@ class IpGeolocationScreen extends StatefulWidget {
   const IpGeolocationScreen({super.key});
 
   @override
-  State<IpGeolocationScreen> createState() =>
-      _IpGeolocationScreenState();
+  State<IpGeolocationScreen> createState() => _IpGeolocationScreenState();
 }
 
-class _IpGeolocationScreenState
-    extends State<IpGeolocationScreen> {
-  final TextEditingController _inputController =
-      TextEditingController(text: '1.1.1.1');
+class _IpGeolocationScreenState extends State<IpGeolocationScreen> {
+  final TextEditingController _inputController = TextEditingController(
+    text: '1.1.1.1',
+  );
 
   @override
   void dispose() {
@@ -32,9 +31,7 @@ class _IpGeolocationScreenState
     if (input.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text(
-            'Please enter an IP address or hostname.',
-          ),
+          content: Text('Please enter an IP address or hostname.'),
         ),
       );
       return;
@@ -63,21 +60,16 @@ class _IpGeolocationScreenState
           padding: const EdgeInsets.all(24),
           child: Center(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxWidth: 1200,
-              ),
+              constraints: const BoxConstraints(maxWidth: 1200),
               child: Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildHeader(context),
                   const SizedBox(height: 24),
                   _buildSearchCard(context, provider),
                   const SizedBox(height: 24),
-                  if (provider.testingIpGeolocation)
-                    _buildLoadingCard(context),
-                  if (result != null &&
-                      !provider.testingIpGeolocation)
+                  if (provider.testingIpGeolocation) _buildLoadingCard(context),
+                  if (result != null && !provider.testingIpGeolocation)
                     _ResultSection(result: result),
                 ],
               ),
@@ -99,28 +91,19 @@ class _IpGeolocationScreenState
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(18),
             gradient: LinearGradient(
-              colors: [
-                theme.colorScheme.primary,
-                theme.colorScheme.secondary,
-              ],
+              colors: [theme.colorScheme.primary, theme.colorScheme.secondary],
             ),
           ),
-          child: const Icon(
-            Icons.public,
-            color: Colors.white,
-            size: 30,
-          ),
+          child: const Icon(Icons.public, color: Colors.white, size: 30),
         ),
         const SizedBox(width: 16),
         Expanded(
           child: Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'IP Geolocation',
-                style: theme.textTheme.headlineSmall
-                    ?.copyWith(
+                style: theme.textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -136,10 +119,7 @@ class _IpGeolocationScreenState
     );
   }
 
-  Widget _buildSearchCard(
-    BuildContext context,
-    NetworkProvider provider,
-  ) {
+  Widget _buildSearchCard(BuildContext context, NetworkProvider provider) {
     return GlassCard(
       padding: const EdgeInsets.all(20),
       child: LayoutBuilder(
@@ -183,9 +163,7 @@ class _IpGeolocationScreenState
         labelText: 'IP Address or Hostname',
         hintText: '1.1.1.1 or cloudflare.com',
         prefixIcon: const Icon(Icons.search),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
       ),
     );
   }
@@ -199,16 +177,10 @@ class _IpGeolocationScreenState
           ? const SizedBox(
               width: 18,
               height: 18,
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-              ),
+              child: CircularProgressIndicator(strokeWidth: 2),
             )
           : const Icon(Icons.location_searching),
-      label: Text(
-        provider.testingIpGeolocation
-            ? 'Resolving...'
-            : 'Lookup IP',
-      ),
+      label: Text(provider.testingIpGeolocation ? 'Resolving...' : 'Lookup IP'),
     );
   }
 
@@ -220,29 +192,21 @@ class _IpGeolocationScreenState
           const SizedBox(
             width: 28,
             height: 28,
-            child: CircularProgressIndicator(
-              strokeWidth: 3,
-            ),
+            child: CircularProgressIndicator(strokeWidth: 3),
           ),
           const SizedBox(width: 16),
           Expanded(
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Resolving IP information',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium
-                      ?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
-                  'Contacting the geolocation service...',
-                ),
+                const Text('Contacting the geolocation service...'),
               ],
             ),
           ),
@@ -255,17 +219,14 @@ class _IpGeolocationScreenState
 class _ResultSection extends StatelessWidget {
   final IpGeolocationResult result;
 
-  const _ResultSection({
-    required this.result,
-  });
+  const _ResultSection({required this.result});
 
   @override
   Widget build(BuildContext context) {
     final success = result.success;
 
     return Column(
-      crossAxisAlignment:
-          CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _ResultHeader(result: result),
         const SizedBox(height: 20),
@@ -274,24 +235,18 @@ class _ResultSection extends StatelessWidget {
         else ...[
           Text(
             'Location',
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
-                ?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 12),
           _LocationGrid(result: result),
           const SizedBox(height: 24),
           Text(
             'Network Information',
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
-                ?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 12),
           _NetworkGrid(result: result),
@@ -302,9 +257,7 @@ class _ResultSection extends StatelessWidget {
               children: [
                 const Icon(Icons.info_outline),
                 const SizedBox(width: 12),
-                Expanded(
-                  child: Text(result.message),
-                ),
+                Expanded(child: Text(result.message)),
               ],
             ),
           ),
@@ -317,9 +270,7 @@ class _ResultSection extends StatelessWidget {
 class _ResultHeader extends StatelessWidget {
   final IpGeolocationResult result;
 
-  const _ResultHeader({
-    required this.result,
-  });
+  const _ResultHeader({required this.result});
 
   @override
   Widget build(BuildContext context) {
@@ -339,49 +290,35 @@ class _ResultHeader extends StatelessWidget {
                   : Colors.red.withValues(alpha: 0.15),
             ),
             child: Icon(
-              success
-                  ? Icons.check_circle
-                  : Icons.error,
-              color:
-                  success ? Colors.green : Colors.red,
+              success ? Icons.check_circle : Icons.error,
+              color: success ? Colors.green : Colors.red,
               size: 30,
             ),
           ),
           const SizedBox(width: 16),
           Expanded(
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Lookup Result',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium
-                      ?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  result.ip.isEmpty
-                      ? 'Unknown IP'
-                      : result.ip,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge
-                      ?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                  result.ip.isEmpty ? 'Unknown IP' : result.ip,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
               ],
             ),
           ),
           StatusChip(
             label: success ? 'SUCCESS' : 'FAILED',
-            status: success
-                ? StatusType.healthy
-                : StatusType.error,
+            status: success ? StatusType.healthy : StatusType.error,
           ),
         ],
       ),
@@ -392,27 +329,22 @@ class _ResultHeader extends StatelessWidget {
 class _LocationGrid extends StatelessWidget {
   final IpGeolocationResult result;
 
-  const _LocationGrid({
-    required this.result,
-  });
+  const _LocationGrid({required this.result});
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final columns =
-            constraints.maxWidth >= 900
-                ? 3
-                : constraints.maxWidth >= 600
-                    ? 2
-                    : 1;
+        final columns = constraints.maxWidth >= 900
+            ? 3
+            : constraints.maxWidth >= 600
+            ? 2
+            : 1;
 
         return GridView(
           shrinkWrap: true,
-          physics:
-              const NeverScrollableScrollPhysics(),
-          gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: columns,
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
@@ -449,27 +381,22 @@ class _LocationGrid extends StatelessWidget {
 class _NetworkGrid extends StatelessWidget {
   final IpGeolocationResult result;
 
-  const _NetworkGrid({
-    required this.result,
-  });
+  const _NetworkGrid({required this.result});
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final columns =
-            constraints.maxWidth >= 900
-                ? 3
-                : constraints.maxWidth >= 600
-                    ? 2
-                    : 1;
+        final columns = constraints.maxWidth >= 900
+            ? 3
+            : constraints.maxWidth >= 600
+            ? 2
+            : 1;
 
         return GridView(
           shrinkWrap: true,
-          physics:
-              const NeverScrollableScrollPhysics(),
-          gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: columns,
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
@@ -492,8 +419,7 @@ class _NetworkGrid extends StatelessWidget {
             ),
             MetricCard(
               title: 'BGP Prefix / CIDR',
-              value:
-                  result.cidr ?? 'Not available',
+              value: result.cidr ?? 'Not available',
               icon: Icons.account_tree,
               color: Colors.pink,
             ),
@@ -507,47 +433,33 @@ class _NetworkGrid extends StatelessWidget {
 class _ErrorCard extends StatelessWidget {
   final String message;
 
-  const _ErrorCard({
-    required this.message,
-  });
+  const _ErrorCard({required this.message});
 
   @override
   Widget build(BuildContext context) {
     return GlassCard(
       padding: const EdgeInsets.all(20),
       child: Row(
-        crossAxisAlignment:
-            CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(
-            Icons.error_outline,
-            color: Colors.red,
-            size: 28,
-          ),
+          const Icon(Icons.error_outline, color: Colors.red, size: 28),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Lookup Failed',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium
-                      ?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 4),
                 Text(message),
               ],
             ),
           ),
-          const StatusChip(
-            label: 'ERROR',
-            status: StatusType.error,
-          ),
+          const StatusChip(label: 'ERROR', status: StatusType.error),
         ],
       ),
     );

@@ -25,18 +25,14 @@ class TracerouteService {
     }
 
     try {
-      final result = await Process.run(
-        'tracert',
-        [
-          '-d',
-          '-h',
-          '$maxHops',
-          '-w',
-          '${timeoutSeconds * 1000}',
-          target,
-        ],
-        runInShell: true,
-      );
+      final result = await Process.run('tracert', [
+        '-d',
+        '-h',
+        '$maxHops',
+        '-w',
+        '${timeoutSeconds * 1000}',
+        target,
+      ], runInShell: true);
 
       final stdout = result.stdout.toString();
       final stderr = result.stderr.toString();
@@ -54,18 +50,13 @@ class TracerouteService {
 
       final hops = _parseOutput(stdout);
 
-      final completed = _destinationReached(
-        stdout,
-        hops,
-      );
+      final completed = _destinationReached(stdout, hops);
 
       return TracerouteResult(
         destination: target,
         hops: hops,
         completed: completed,
-        error: completed
-            ? null
-            : 'Traceroute did not reach the destination.',
+        error: completed ? null : 'Traceroute did not reach the destination.',
       );
     } on ProcessException catch (e) {
       return TracerouteResult(
@@ -115,17 +106,13 @@ class TracerouteService {
   // ============================================================
 
   TracerouteHop? _parseHopLine(String line) {
-    final hopMatch = RegExp(
-      r'^\s*(\d+)\s+(.*)$',
-    ).firstMatch(line);
+    final hopMatch = RegExp(r'^\s*(\d+)\s+(.*)$').firstMatch(line);
 
     if (hopMatch == null) {
       return null;
     }
 
-    final hopNumber = int.tryParse(
-      hopMatch.group(1)!,
-    );
+    final hopNumber = int.tryParse(hopMatch.group(1)!);
 
     if (hopNumber == null) {
       return null;
@@ -137,8 +124,7 @@ class TracerouteService {
     // TIMEOUT
     // ----------------------------------------------------------
 
-    if (data.contains('*') &&
-        data.toLowerCase().contains('timed out')) {
+    if (data.contains('*') && data.toLowerCase().contains('timed out')) {
       return TracerouteHop(
         hop: hopNumber,
         address: '*',
@@ -157,11 +143,7 @@ class TracerouteService {
     ).allMatches(data);
 
     final latencies = latencyMatches
-        .map(
-          (match) => int.tryParse(
-            match.group(1)!,
-          ),
-        )
+        .map((match) => int.tryParse(match.group(1)!))
         .whereType<int>()
         .toList();
 
@@ -185,42 +167,27 @@ class TracerouteService {
 
   String _extractAddress(String data) {
     final withoutLatency = data.replaceAll(
-      RegExp(
-        r'\d+\s*ms',
-        caseSensitive: false,
-      ),
+      RegExp(r'\d+\s*ms', caseSensitive: false),
       '',
     );
 
     final cleaned = withoutLatency
         .replaceAll('*', '')
-        .replaceAll(
-          RegExp(
-            r'Request timed out\.',
-            caseSensitive: false,
-          ),
-          '',
-        )
+        .replaceAll(RegExp(r'Request timed out\.', caseSensitive: false), '')
         .trim();
 
     if (cleaned.isEmpty) {
       return '*';
     }
 
-    return cleaned
-        .split(RegExp(r'\s+'))
-        .last
-        .trim();
+    return cleaned.split(RegExp(r'\s+')).last.trim();
   }
 
   // ============================================================
   // DETERMINE COMPLETION
   // ============================================================
 
-  bool _destinationReached(
-    String output,
-    List<TracerouteHop> hops,
-  ) {
+  bool _destinationReached(String output, List<TracerouteHop> hops) {
     if (hops.isEmpty) {
       return false;
     }

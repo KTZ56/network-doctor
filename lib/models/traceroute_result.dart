@@ -22,10 +22,7 @@ class TracerouteHop {
       return 0;
     }
 
-    final total = latencyMs.fold<int>(
-      0,
-      (sum, value) => sum + value,
-    );
+    final total = latencyMs.fold<int>(0, (sum, value) => sum + value);
 
     return total / latencyMs.length;
   }
@@ -36,9 +33,7 @@ class TracerouteHop {
       return 0;
     }
 
-    return latencyMs.reduce(
-      (a, b) => a < b ? a : b,
-    );
+    return latencyMs.reduce((a, b) => a < b ? a : b);
   }
 
   /// Highest latency recorded for this hop.
@@ -47,9 +42,7 @@ class TracerouteHop {
       return 0;
     }
 
-    return latencyMs.reduce(
-      (a, b) => a > b ? a : b,
-    );
+    return latencyMs.reduce((a, b) => a > b ? a : b);
   }
 
   /// Number of successful responses.
@@ -97,8 +90,7 @@ class TracerouteResult {
 
   /// Average latency across responding hops.
   double get averageLatency {
-    final respondingHops =
-        hops.where((hop) => hop.success);
+    final respondingHops = hops.where((hop) => hop.success);
 
     if (respondingHops.isEmpty) {
       return 0;
@@ -114,38 +106,26 @@ class TracerouteResult {
 
   /// Fastest responding hop.
   TracerouteHop? get fastestHop {
-    final respondingHops = hops
-        .where((hop) => hop.success)
-        .toList();
+    final respondingHops = hops.where((hop) => hop.success).toList();
 
     if (respondingHops.isEmpty) {
       return null;
     }
 
-    respondingHops.sort(
-      (a, b) => a.averageLatency.compareTo(
-        b.averageLatency,
-      ),
-    );
+    respondingHops.sort((a, b) => a.averageLatency.compareTo(b.averageLatency));
 
     return respondingHops.first;
   }
 
   /// Slowest responding hop.
   TracerouteHop? get slowestHop {
-    final respondingHops = hops
-        .where((hop) => hop.success)
-        .toList();
+    final respondingHops = hops.where((hop) => hop.success).toList();
 
     if (respondingHops.isEmpty) {
       return null;
     }
 
-    respondingHops.sort(
-      (a, b) => a.averageLatency.compareTo(
-        b.averageLatency,
-      ),
-    );
+    respondingHops.sort((a, b) => a.averageLatency.compareTo(b.averageLatency));
 
     return respondingHops.last;
   }

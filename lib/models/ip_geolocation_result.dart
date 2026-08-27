@@ -23,28 +23,20 @@ class IpGeolocationResult {
     required this.message,
   });
 
-  factory IpGeolocationResult.fromJson(
-    Map<String, dynamic> json,
-  ) {
+  factory IpGeolocationResult.fromJson(Map<String, dynamic> json) {
     final error = json['error'];
 
     return IpGeolocationResult(
       success: error == null,
       ip: json['ip']?.toString() ?? 'Unknown',
-      countryCode:
-          json['country_code']?.toString() ?? 'Unknown',
-      country:
-          json['country']?.toString() ?? 'Unknown',
-      countryFlag:
-          json['country_flag']?.toString() ?? '',
-      continent:
-          json['continent']?.toString() ?? 'Unknown',
-      asNumber:
-          json['as_number'] is num
-              ? (json['as_number'] as num).toInt()
-              : null,
-      organization:
-          json['as_description']?.toString() ?? 'Unknown',
+      countryCode: json['country_code']?.toString() ?? 'Unknown',
+      country: json['country']?.toString() ?? 'Unknown',
+      countryFlag: json['country_flag']?.toString() ?? '',
+      continent: json['continent']?.toString() ?? 'Unknown',
+      asNumber: json['as_number'] is num
+          ? (json['as_number'] as num).toInt()
+          : null,
+      organization: json['as_description']?.toString() ?? 'Unknown',
       cidr: json['cidr']?.toString(),
       message: error == null
           ? 'IP geolocation lookup completed successfully.'

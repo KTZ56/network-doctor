@@ -12,17 +12,12 @@ class DiagnosticService {
     // NO RESULTS
     // --------------------------------------------------------
 
-    if (gateway == null ||
-        internet == null ||
-        dns == null) {
+    if (gateway == null || internet == null || dns == null) {
       return const Diagnosis(
         level: DiagnosisLevel.warning,
         title: 'Diagnostics Incomplete',
-        message:
-            'Network testing has not completed yet.',
-        recommendations: [
-          'Run the network test again.',
-        ],
+        message: 'Network testing has not completed yet.',
+        recommendations: ['Run the network test again.'],
       );
     }
 
@@ -34,8 +29,7 @@ class DiagnosticService {
       return const Diagnosis(
         level: DiagnosisLevel.critical,
         title: 'Local Network Failure',
-        message:
-            'Your computer cannot reach the default gateway.',
+        message: 'Your computer cannot reach the default gateway.',
         recommendations: [
           'Check the Ethernet cable or Wi-Fi connection.',
           'Check the switch port.',
@@ -94,9 +88,7 @@ class DiagnosticService {
       title: 'Network Healthy',
       message:
           'Your local network, Internet connection, and DNS are working correctly.',
-      recommendations: [
-        'No action required.',
-      ],
+      recommendations: ['No action required.'],
     );
   }
 }

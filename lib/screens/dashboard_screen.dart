@@ -442,11 +442,11 @@ class _ToolsGridSection extends StatelessWidget {
       ),
 
       _ToolItem(
-  'Traffic Monitor',
-  'Monitor live bandwidth usage',
-  Icons.monitor_heart_rounded,
-  const TrafficMonitorScreen(),
-),
+        'Traffic Monitor',
+        'Monitor live bandwidth usage',
+        Icons.monitor_heart_rounded,
+        const TrafficMonitorScreen(),
+      ),
     ];
 
     return Column(

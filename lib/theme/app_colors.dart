@@ -35,32 +35,20 @@ class AppColors {
 
   // Dashboard Gradients
   static const LinearGradient primaryGradient = LinearGradient(
-    colors: [
-      Color(0xFF2563EB),
-      Color(0xFF06B6D4),
-    ],
+    colors: [Color(0xFF2563EB), Color(0xFF06B6D4)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
 
   static const LinearGradient successGradient = LinearGradient(
-    colors: [
-      Color(0xFF10B981),
-      Color(0xFF34D399),
-    ],
+    colors: [Color(0xFF10B981), Color(0xFF34D399)],
   );
 
   static const LinearGradient warningGradient = LinearGradient(
-    colors: [
-      Color(0xFFF59E0B),
-      Color(0xFFFBBF24),
-    ],
+    colors: [Color(0xFFF59E0B), Color(0xFFFBBF24)],
   );
 
   static const LinearGradient errorGradient = LinearGradient(
-    colors: [
-      Color(0xFFEF4444),
-      Color(0xFFF87171),
-    ],
+    colors: [Color(0xFFEF4444), Color(0xFFF87171)],
   );
 }

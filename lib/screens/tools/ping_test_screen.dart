@@ -15,8 +15,9 @@ class PingTestScreen extends StatefulWidget {
 }
 
 class _PingTestScreenState extends State<PingTestScreen> {
-  final TextEditingController _hostController =
-      TextEditingController(text: '8.8.8.8');
+  final TextEditingController _hostController = TextEditingController(
+    text: '8.8.8.8',
+  );
 
   @override
   void dispose() {
@@ -67,7 +68,6 @@ class _PingTestScreenState extends State<PingTestScreen> {
                   // =====================================================
                   // HEADER
                   // =====================================================
-
                   Row(
                     children: [
                       Container(
@@ -76,10 +76,7 @@ class _PingTestScreenState extends State<PingTestScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(18),
                           gradient: LinearGradient(
-                            colors: [
-                              colors.primary,
-                              colors.secondary,
-                            ],
+                            colors: [colors.primary, colors.secondary],
                           ),
                         ),
                         child: Icon(
@@ -91,24 +88,17 @@ class _PingTestScreenState extends State<PingTestScreen> {
                       const SizedBox(width: 16),
                       Expanded(
                         child: Column(
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               'Ping Test',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall
-                                  ?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              style: Theme.of(context).textTheme.headlineSmall
+                                  ?.copyWith(fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 4),
                             Text(
                               'Check host connectivity and measure network response time.',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium,
+                              style: Theme.of(context).textTheme.bodyMedium,
                             ),
                           ],
                         ),
@@ -121,30 +111,20 @@ class _PingTestScreenState extends State<PingTestScreen> {
                   // =====================================================
                   // TARGET INPUT
                   // =====================================================
-
                   GlassCard(
                     child: Padding(
                       padding: const EdgeInsets.all(22),
                       child: Column(
-                        crossAxisAlignment:
-                            CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
-                              Icon(
-                                Icons.search,
-                                color: colors.primary,
-                              ),
+                              Icon(Icons.search, color: colors.primary),
                               const SizedBox(width: 10),
                               Text(
                                 'Target Host',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge
-                                    ?.copyWith(
-                                      fontWeight:
-                                          FontWeight.bold,
-                                    ),
+                                style: Theme.of(context).textTheme.titleLarge
+                                    ?.copyWith(fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
@@ -157,10 +137,8 @@ class _PingTestScreenState extends State<PingTestScreen> {
                                 return Column(
                                   children: [
                                     _HostField(
-                                      controller:
-                                          _hostController,
-                                      enabled:
-                                          !provider.testingPing,
+                                      controller: _hostController,
+                                      enabled: !provider.testingPing,
                                       onSubmitted: () {
                                         if (!provider.testingPing) {
                                           _runPing(provider);
@@ -170,8 +148,7 @@ class _PingTestScreenState extends State<PingTestScreen> {
                                     const SizedBox(height: 14),
                                     _PingButton(
                                       provider: provider,
-                                      onPressed: () =>
-                                          _runPing(provider),
+                                      onPressed: () => _runPing(provider),
                                     ),
                                   ],
                                 );
@@ -181,10 +158,8 @@ class _PingTestScreenState extends State<PingTestScreen> {
                                 children: [
                                   Expanded(
                                     child: _HostField(
-                                      controller:
-                                          _hostController,
-                                      enabled:
-                                          !provider.testingPing,
+                                      controller: _hostController,
+                                      enabled: !provider.testingPing,
                                       onSubmitted: () {
                                         if (!provider.testingPing) {
                                           _runPing(provider);
@@ -195,8 +170,7 @@ class _PingTestScreenState extends State<PingTestScreen> {
                                   const SizedBox(width: 14),
                                   _PingButton(
                                     provider: provider,
-                                    onPressed: () =>
-                                        _runPing(provider),
+                                    onPressed: () => _runPing(provider),
                                   ),
                                 ],
                               );
@@ -212,7 +186,6 @@ class _PingTestScreenState extends State<PingTestScreen> {
                   // =====================================================
                   // LOADING
                   // =====================================================
-
                   if (provider.testingPing)
                     GlassCard(
                       child: Padding(
@@ -229,25 +202,17 @@ class _PingTestScreenState extends State<PingTestScreen> {
                             ),
                             const SizedBox(width: 16),
                             Column(
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'Testing Connection',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium
-                                      ?.copyWith(
-                                        fontWeight:
-                                            FontWeight.bold,
-                                      ),
+                                  style: Theme.of(context).textTheme.titleMedium
+                                      ?.copyWith(fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(height: 3),
                                 Text(
                                   'Sending ping request...',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall,
+                                  style: Theme.of(context).textTheme.bodySmall,
                                 ),
                               ],
                             ),
@@ -259,9 +224,7 @@ class _PingTestScreenState extends State<PingTestScreen> {
                   // =====================================================
                   // RESULT
                   // =====================================================
-
-                  if (result != null &&
-                      !provider.testingPing) ...[
+                  if (result != null && !provider.testingPing) ...[
                     const SizedBox(height: 4),
                     _PingResultCard(
                       result: result,
@@ -317,10 +280,7 @@ class _PingButton extends StatelessWidget {
   final NetworkProvider provider;
   final VoidCallback onPressed;
 
-  const _PingButton({
-    required this.provider,
-    required this.onPressed,
-  });
+  const _PingButton({required this.provider, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -330,16 +290,10 @@ class _PingButton extends StatelessWidget {
           ? const SizedBox(
               width: 18,
               height: 18,
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-              ),
+              child: CircularProgressIndicator(strokeWidth: 2),
             )
           : const Icon(Icons.network_ping),
-      label: Text(
-        provider.testingPing
-            ? 'Pinging...'
-            : 'Send Ping',
-      ),
+      label: Text(provider.testingPing ? 'Pinging...' : 'Send Ping'),
     );
   }
 }
@@ -352,10 +306,7 @@ class _PingResultCard extends StatelessWidget {
   final PingResult result;
   final String host;
 
-  const _PingResultCard({
-    required this.result,
-    required this.host,
-  });
+  const _PingResultCard({required this.result, required this.host});
 
   @override
   Widget build(BuildContext context) {
@@ -364,8 +315,7 @@ class _PingResultCard extends StatelessWidget {
 
     final bool success = result.success;
 
-    final Color statusColor =
-        success ? Colors.green : Colors.red;
+    final Color statusColor = success ? Colors.green : Colors.red;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -373,7 +323,6 @@ class _PingResultCard extends StatelessWidget {
         // =====================================================
         // RESULT HEADER
         // =====================================================
-
         GlassCard(
           child: Padding(
             padding: const EdgeInsets.all(24),
@@ -383,17 +332,11 @@ class _PingResultCard extends StatelessWidget {
                   width: 58,
                   height: 58,
                   decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(18),
-                    color:
-                        statusColor.withValues(
-                      alpha: 0.12,
-                    ),
+                    borderRadius: BorderRadius.circular(18),
+                    color: statusColor.withValues(alpha: 0.12),
                   ),
                   child: Icon(
-                    success
-                        ? Icons.check_circle
-                        : Icons.error,
+                    success ? Icons.check_circle : Icons.error,
                     color: statusColor,
                     size: 32,
                   ),
@@ -403,34 +346,23 @@ class _PingResultCard extends StatelessWidget {
 
                 Expanded(
                   child: Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'Ping Result',
-                        style: theme.textTheme.titleLarge
-                            ?.copyWith(
-                          fontWeight:
-                              FontWeight.bold,
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 4),
-                      Text(
-                        host,
-                        style:
-                            theme.textTheme.bodyMedium,
-                      ),
+                      Text(host, style: theme.textTheme.bodyMedium),
                     ],
                   ),
                 ),
 
                 StatusChip(
-                  label: success
-                      ? 'REACHABLE'
-                      : 'FAILED',
-                  status: success
-                      ? StatusType.healthy
-                      : StatusType.error,
+                  label: success ? 'REACHABLE' : 'FAILED',
+                  status: success ? StatusType.healthy : StatusType.error,
                 ),
               ],
             ),
@@ -442,32 +374,22 @@ class _PingResultCard extends StatelessWidget {
         // =====================================================
         // METRICS
         // =====================================================
-
         LayoutBuilder(
           builder: (context, constraints) {
-            final columns =
-                constraints.maxWidth >= 700
-                    ? 3
-                    : 1;
+            final columns = constraints.maxWidth >= 700 ? 3 : 1;
 
             return GridView.count(
               shrinkWrap: true,
-              physics:
-                  const NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               crossAxisCount: columns,
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
-              childAspectRatio:
-                  columns == 1 ? 3.0 : 1.8,
+              childAspectRatio: columns == 1 ? 3.0 : 1.8,
               children: [
                 MetricCard(
                   title: 'Status',
-                  value: success
-                      ? 'Online'
-                      : 'Offline',
-                  icon: success
-                      ? Icons.wifi
-                      : Icons.wifi_off,
+                  value: success ? 'Online' : 'Offline',
+                  icon: success ? Icons.wifi : Icons.wifi_off,
                   color: statusColor,
                 ),
 
@@ -496,27 +418,20 @@ class _PingResultCard extends StatelessWidget {
         // =====================================================
         // RESPONSE MESSAGE
         // =====================================================
-
         GlassCard(
           child: Padding(
             padding: const EdgeInsets.all(22),
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
-                    Icon(
-                      Icons.info_outline,
-                      color: colors.primary,
-                    ),
+                    Icon(Icons.info_outline, color: colors.primary),
                     const SizedBox(width: 10),
                     Text(
                       'Response Details',
-                      style: theme.textTheme.titleMedium
-                          ?.copyWith(
-                        fontWeight:
-                            FontWeight.bold,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
@@ -524,20 +439,14 @@ class _PingResultCard extends StatelessWidget {
 
                 const SizedBox(height: 14),
 
-                Text(
-                  result.message,
-                  style:
-                      theme.textTheme.bodyLarge,
-                ),
+                Text(result.message, style: theme.textTheme.bodyLarge),
 
                 const SizedBox(height: 16),
 
                 Row(
                   children: [
                     Icon(
-                      success
-                          ? Icons.check_circle
-                          : Icons.error_outline,
+                      success ? Icons.check_circle : Icons.error_outline,
                       size: 20,
                       color: statusColor,
                     ),
@@ -549,8 +458,7 @@ class _PingResultCard extends StatelessWidget {
                             : 'The target host did not respond to the ping request.',
                         style: TextStyle(
                           color: statusColor,
-                          fontWeight:
-                              FontWeight.w600,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),

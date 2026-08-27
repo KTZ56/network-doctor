@@ -38,25 +38,15 @@ class WhoisResult {
     );
   }
 
-
-  factory WhoisResult.fromJson(
-  Map<String, dynamic> json,
-) {
-  return WhoisResult(
-    success: true,
-    domain: json['domainName'] ?? '',
-    registrar: json['registrarName'] ?? 'Unknown',
-    creationDate:
-        json['createdDate'] ?? 'Unknown',
-    expiryDate:
-        json['expiresDate'] ?? 'Unknown',
-    nameServers:
-        List<String>.from(
-      json['nameServers'] ?? [],
-    ),
-    message:
-        'WHOIS lookup completed successfully.',
-  );
+  factory WhoisResult.fromJson(Map<String, dynamic> json) {
+    return WhoisResult(
+      success: true,
+      domain: json['domainName'] ?? '',
+      registrar: json['registrarName'] ?? 'Unknown',
+      creationDate: json['createdDate'] ?? 'Unknown',
+      expiryDate: json['expiresDate'] ?? 'Unknown',
+      nameServers: List<String>.from(json['nameServers'] ?? []),
+      message: 'WHOIS lookup completed successfully.',
+    );
+  }
 }
-}
-

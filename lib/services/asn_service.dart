@@ -6,15 +6,11 @@ import 'package:http/http.dart' as http;
 import '../models/asn_result.dart';
 
 class AsnService {
-  Future<AsnResult> lookup(
-    String input,
-  ) async {
+  Future<AsnResult> lookup(String input) async {
     var query = input.trim();
 
     if (query.isEmpty) {
-      return AsnResult.failure(
-        message: 'Please enter an ASN.',
-      );
+      return AsnResult.failure(message: 'Please enter an ASN.');
     }
 
     // Accept both:
@@ -28,32 +24,22 @@ class AsnService {
 
     if (!RegExp(r'^\d+$').hasMatch(query)) {
       return AsnResult.failure(
-        message:
-            'Invalid ASN. Enter a number such as 22612 or AS22612.',
+        message: 'Invalid ASN. Enter a number such as 22612 or AS22612.',
       );
     }
 
     try {
-      final uri = Uri.parse(
-        'https://atlas.ipinfo.app/api/v2/asn/$query',
-      );
+      final uri = Uri.parse('https://atlas.ipinfo.app/api/v2/asn/$query');
 
-      final response = await http
-          .get(uri)
-          .timeout(
-            const Duration(seconds: 15),
-          );
+      final response = await http.get(uri).timeout(const Duration(seconds: 15));
 
       Map<String, dynamic> data;
 
       try {
-        data =
-            jsonDecode(response.body)
-                as Map<String, dynamic>;
+        data = jsonDecode(response.body) as Map<String, dynamic>;
       } catch (_) {
         return AsnResult.failure(
-          message:
-              'The ASN server returned invalid JSON data.',
+          message: 'The ASN server returned invalid JSON data.',
         );
       }
 
@@ -66,28 +52,18 @@ class AsnService {
       }
 
       if (data['error'] != null) {
-        return AsnResult.failure(
-          message:
-              data['error'].toString(),
-        );
+        return AsnResult.failure(message: data['error'].toString());
       }
 
       return AsnResult.fromJson(data);
     } on TimeoutException {
-      return AsnResult.failure(
-        message:
-            'The ASN server timed out.',
-      );
+      return AsnResult.failure(message: 'The ASN server timed out.');
     } on FormatException {
       return AsnResult.failure(
-        message:
-            'The ASN server returned invalid data.',
+        message: 'The ASN server returned invalid data.',
       );
     } catch (e) {
-      return AsnResult.failure(
-        message:
-            'ASN lookup failed: $e',
-      );
+      return AsnResult.failure(message: 'ASN lookup failed: $e');
     }
   }
 }

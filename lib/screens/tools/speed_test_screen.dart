@@ -31,22 +31,17 @@ class SpeedTestScreen extends StatelessWidget {
 
           child: Center(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxWidth: 1000,
-              ),
+              constraints: const BoxConstraints(maxWidth: 1000),
 
               child: Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
 
                 children: [
                   // ==================================================
                   // HEADER
                   // ==================================================
-
                   Row(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
 
                     children: [
                       Container(
@@ -54,17 +49,14 @@ class SpeedTestScreen extends StatelessWidget {
                         height: 56,
 
                         decoration: BoxDecoration(
-                          color:
-                              colors.primaryContainer,
-                          borderRadius:
-                              BorderRadius.circular(17),
+                          color: colors.primaryContainer,
+                          borderRadius: BorderRadius.circular(17),
                         ),
 
                         child: Icon(
                           Icons.speed_rounded,
                           size: 30,
-                          color:
-                              colors.onPrimaryContainer,
+                          color: colors.onPrimaryContainer,
                         ),
                       ),
 
@@ -72,19 +64,14 @@ class SpeedTestScreen extends StatelessWidget {
 
                       Expanded(
                         child: Column(
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
 
                           children: [
                             Text(
                               'Network Speed Test',
 
-                              style: theme
-                                  .textTheme
-                                  .headlineSmall
-                                  ?.copyWith(
-                                fontWeight:
-                                    FontWeight.bold,
+                              style: theme.textTheme.headlineSmall?.copyWith(
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
 
@@ -93,12 +80,8 @@ class SpeedTestScreen extends StatelessWidget {
                             Text(
                               'Measure your connection latency, download speed, and upload speed.',
 
-                              style: theme
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                color:
-                                    colors.onSurfaceVariant,
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: colors.onSurfaceVariant,
                               ),
                             ),
                           ],
@@ -112,22 +95,17 @@ class SpeedTestScreen extends StatelessWidget {
                   // ==================================================
                   // TEST CONTROL CARD
                   // ==================================================
-
                   Card(
                     elevation: 0,
 
-                    color:
-                        colors.surfaceContainerHighest,
+                    color: colors.surfaceContainerHighest,
 
-                    shape:
-                        RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(20),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
                     ),
 
                     child: Padding(
-                      padding:
-                          const EdgeInsets.all(24),
+                      padding: const EdgeInsets.all(24),
 
                       child: Column(
                         children: [
@@ -135,20 +113,17 @@ class SpeedTestScreen extends StatelessWidget {
                             width: 82,
                             height: 82,
 
-                            decoration:
-                                BoxDecoration(
+                            decoration: BoxDecoration(
                               shape: BoxShape.circle,
 
-                              color:
-                                  colors.primaryContainer,
+                              color: colors.primaryContainer,
                             ),
 
                             child: Icon(
                               Icons.network_check_rounded,
                               size: 42,
 
-                              color: colors
-                                  .onPrimaryContainer,
+                              color: colors.onPrimaryContainer,
                             ),
                           ),
 
@@ -159,16 +134,11 @@ class SpeedTestScreen extends StatelessWidget {
                                 ? 'Testing your connection...'
                                 : 'Ready to test your connection',
 
-                            style: theme
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(
-                              fontWeight:
-                                  FontWeight.bold,
+                            style: theme.textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.bold,
                             ),
 
-                            textAlign:
-                                TextAlign.center,
+                            textAlign: TextAlign.center,
                           ),
 
                           const SizedBox(height: 6),
@@ -178,16 +148,11 @@ class SpeedTestScreen extends StatelessWidget {
                                 ? 'Please wait while Network Doctor measures your network performance.'
                                 : 'Run a speed test to measure your current network performance.',
 
-                            style: theme
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                              color:
-                                  colors.onSurfaceVariant,
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: colors.onSurfaceVariant,
                             ),
 
-                            textAlign:
-                                TextAlign.center,
+                            textAlign: TextAlign.center,
                           ),
 
                           const SizedBox(height: 22),
@@ -196,29 +161,21 @@ class SpeedTestScreen extends StatelessWidget {
                             width: 240,
                             height: 52,
 
-                            child:
-                                FilledButton.icon(
-                              onPressed:
-                                  provider.testingSpeed
-                                      ? null
-                                      : provider
-                                          .runSpeedTest,
+                            child: FilledButton.icon(
+                              onPressed: provider.testingSpeed
+                                  ? null
+                                  : provider.runSpeedTest,
 
-                              icon: provider
-                                      .testingSpeed
+                              icon: provider.testingSpeed
                                   ? const SizedBox(
                                       width: 19,
                                       height: 19,
 
-                                      child:
-                                          CircularProgressIndicator(
+                                      child: CircularProgressIndicator(
                                         strokeWidth: 2,
                                       ),
                                     )
-                                  : const Icon(
-                                      Icons
-                                          .play_arrow_rounded,
-                                    ),
+                                  : const Icon(Icons.play_arrow_rounded),
 
                               label: Text(
                                 provider.testingSpeed
@@ -237,14 +194,12 @@ class SpeedTestScreen extends StatelessWidget {
                   // ==================================================
                   // LOADING
                   // ==================================================
-
                   if (provider.testingSpeed)
                     Card(
                       elevation: 0,
 
                       child: Padding(
-                        padding:
-                            const EdgeInsets.all(22),
+                        padding: const EdgeInsets.all(22),
 
                         child: Row(
                           children: [
@@ -252,11 +207,9 @@ class SpeedTestScreen extends StatelessWidget {
                               width: 28,
                               height: 28,
 
-                              child:
-                                  CircularProgressIndicator(
+                              child: CircularProgressIndicator(
                                 strokeWidth: 2.5,
-                                color:
-                                    colors.primary,
+                                color: colors.primary,
                               ),
                             ),
 
@@ -264,36 +217,23 @@ class SpeedTestScreen extends StatelessWidget {
 
                             Expanded(
                               child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment
-                                        .start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
 
                                 children: [
                                   Text(
                                     'Running speed test',
 
-                                    style: theme
-                                        .textTheme
-                                        .titleMedium
-                                        ?.copyWith(
-                                      fontWeight:
-                                          FontWeight.bold,
-                                    ),
+                                    style: theme.textTheme.titleMedium
+                                        ?.copyWith(fontWeight: FontWeight.bold),
                                   ),
 
-                                  const SizedBox(
-                                    height: 4,
-                                  ),
+                                  const SizedBox(height: 4),
 
                                   Text(
                                     'Measuring latency, download, and upload performance...',
 
-                                    style: theme
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(
-                                      color: colors
-                                          .onSurfaceVariant,
+                                    style: theme.textTheme.bodySmall?.copyWith(
+                                      color: colors.onSurfaceVariant,
                                     ),
                                   ),
                                 ],
@@ -307,12 +247,8 @@ class SpeedTestScreen extends StatelessWidget {
                   // ==================================================
                   // RESULT
                   // ==================================================
-
-                  if (result != null &&
-                      !provider.testingSpeed)
-                    _SpeedResultCard(
-                      result: result,
-                    ),
+                  if (result != null && !provider.testingSpeed)
+                    _SpeedResultCard(result: result),
                 ],
               ),
             ),
@@ -330,9 +266,7 @@ class SpeedTestScreen extends StatelessWidget {
 class _SpeedResultCard extends StatelessWidget {
   final dynamic result;
 
-  const _SpeedResultCard({
-    required this.result,
-  });
+  const _SpeedResultCard({required this.result});
 
   @override
   Widget build(BuildContext context) {
@@ -342,22 +276,18 @@ class _SpeedResultCard extends StatelessWidget {
     return Card(
       elevation: 0,
 
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
 
       child: Padding(
         padding: const EdgeInsets.all(24),
 
         child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
 
           children: [
             // ==================================================
             // RESULT HEADER
             // ==================================================
-
             Row(
               children: [
                 Container(
@@ -365,17 +295,14 @@ class _SpeedResultCard extends StatelessWidget {
                   height: 52,
 
                   decoration: BoxDecoration(
-                    color:
-                        colors.primaryContainer,
+                    color: colors.primaryContainer,
 
-                    borderRadius:
-                        BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(16),
                   ),
 
                   child: Icon(
                     Icons.analytics_rounded,
-                    color:
-                        colors.onPrimaryContainer,
+                    color: colors.onPrimaryContainer,
                     size: 28,
                   ),
                 ),
@@ -384,19 +311,14 @@ class _SpeedResultCard extends StatelessWidget {
 
                 Expanded(
                   child: Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
 
                     children: [
                       Text(
                         'Speed Test Results',
 
-                        style: theme
-                            .textTheme
-                            .titleLarge
-                            ?.copyWith(
-                          fontWeight:
-                              FontWeight.bold,
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
 
@@ -405,12 +327,8 @@ class _SpeedResultCard extends StatelessWidget {
                       Text(
                         'Your measured network performance',
 
-                        style: theme
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(
-                          color:
-                              colors.onSurfaceVariant,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: colors.onSurfaceVariant,
                         ),
                       ),
                     ],
@@ -418,20 +336,15 @@ class _SpeedResultCard extends StatelessWidget {
                 ),
 
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: 12,
                     vertical: 7,
                   ),
 
                   decoration: BoxDecoration(
-                    color:
-                        Colors.green.withValues(
-                      alpha: 0.12,
-                    ),
+                    color: Colors.green.withValues(alpha: 0.12),
 
-                    borderRadius:
-                        BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(20),
                   ),
 
                   child: const Text(
@@ -440,8 +353,7 @@ class _SpeedResultCard extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.green,
                       fontSize: 11,
-                      fontWeight:
-                          FontWeight.bold,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
@@ -450,23 +362,17 @@ class _SpeedResultCard extends StatelessWidget {
 
             const SizedBox(height: 24),
 
-            Divider(
-              color: colors.outlineVariant,
-            ),
+            Divider(color: colors.outlineVariant),
 
             const SizedBox(height: 24),
 
             // ==================================================
             // METRICS
             // ==================================================
-
             Text(
               'Connection Performance',
 
-              style: theme
-                  .textTheme
-                  .titleMedium
-                  ?.copyWith(
+              style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -475,20 +381,16 @@ class _SpeedResultCard extends StatelessWidget {
 
             LayoutBuilder(
               builder: (context, constraints) {
-                final width =
-                    constraints.maxWidth;
+                final width = constraints.maxWidth;
 
                 if (width < 650) {
                   return Column(
                     children: [
                       _MetricCard(
                         title: 'Latency',
-                        value:
-                            '${result.latencyMs.toStringAsFixed(1)} ms',
-                        icon:
-                            Icons.timer_outlined,
-                        color:
-                            Colors.orange,
+                        value: '${result.latencyMs.toStringAsFixed(1)} ms',
+                        icon: Icons.timer_outlined,
+                        color: Colors.orange,
                       ),
 
                       const SizedBox(height: 12),
@@ -497,10 +399,8 @@ class _SpeedResultCard extends StatelessWidget {
                         title: 'Download',
                         value:
                             '${result.downloadSpeedMbps.toStringAsFixed(2)} Mbps',
-                        icon:
-                            Icons.download_rounded,
-                        color:
-                            colors.primary,
+                        icon: Icons.download_rounded,
+                        color: colors.primary,
                       ),
 
                       const SizedBox(height: 12),
@@ -509,10 +409,8 @@ class _SpeedResultCard extends StatelessWidget {
                         title: 'Upload',
                         value:
                             '${result.uploadSpeedMbps.toStringAsFixed(2)} Mbps',
-                        icon:
-                            Icons.upload_rounded,
-                        color:
-                            colors.secondary,
+                        icon: Icons.upload_rounded,
+                        color: colors.secondary,
                       ),
                     ],
                   );
@@ -523,12 +421,9 @@ class _SpeedResultCard extends StatelessWidget {
                     Expanded(
                       child: _MetricCard(
                         title: 'Latency',
-                        value:
-                            '${result.latencyMs.toStringAsFixed(1)} ms',
-                        icon:
-                            Icons.timer_outlined,
-                        color:
-                            Colors.orange,
+                        value: '${result.latencyMs.toStringAsFixed(1)} ms',
+                        icon: Icons.timer_outlined,
+                        color: Colors.orange,
                       ),
                     ),
 
@@ -539,10 +434,8 @@ class _SpeedResultCard extends StatelessWidget {
                         title: 'Download',
                         value:
                             '${result.downloadSpeedMbps.toStringAsFixed(2)} Mbps',
-                        icon:
-                            Icons.download_rounded,
-                        color:
-                            colors.primary,
+                        icon: Icons.download_rounded,
+                        color: colors.primary,
                       ),
                     ),
 
@@ -553,10 +446,8 @@ class _SpeedResultCard extends StatelessWidget {
                         title: 'Upload',
                         value:
                             '${result.uploadSpeedMbps.toStringAsFixed(2)} Mbps',
-                        icon:
-                            Icons.upload_rounded,
-                        color:
-                            colors.secondary,
+                        icon: Icons.upload_rounded,
+                        color: colors.secondary,
                       ),
                     ),
                   ],
@@ -599,18 +490,13 @@ class _MetricCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.07),
 
-        borderRadius:
-            BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(18),
 
-        border: Border.all(
-          color:
-              color.withValues(alpha: 0.16),
-        ),
+        border: Border.all(color: color.withValues(alpha: 0.16)),
       ),
 
       child: Column(
-        crossAxisAlignment:
-            CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
 
         children: [
           Row(
@@ -620,30 +506,19 @@ class _MetricCard extends StatelessWidget {
                 height: 42,
 
                 decoration: BoxDecoration(
-                  color:
-                      color.withValues(
-                    alpha: 0.13,
-                  ),
+                  color: color.withValues(alpha: 0.13),
 
-                  borderRadius:
-                      BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(12),
                 ),
 
-                child: Icon(
-                  icon,
-                  color: color,
-                  size: 21,
-                ),
+                child: Icon(icon, color: color, size: 21),
               ),
 
               const Spacer(),
 
               Icon(
                 Icons.trending_up_rounded,
-                color:
-                    color.withValues(
-                  alpha: 0.7,
-                ),
+                color: color.withValues(alpha: 0.7),
                 size: 20,
               ),
             ],
@@ -654,13 +529,8 @@ class _MetricCard extends StatelessWidget {
           Text(
             title,
 
-            style: theme
-                .textTheme
-                .labelMedium
-                ?.copyWith(
-              color: theme
-                  .colorScheme
-                  .onSurfaceVariant,
+            style: theme.textTheme.labelMedium?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
             ),
           ),
 
@@ -671,15 +541,10 @@ class _MetricCard extends StatelessWidget {
 
             maxLines: 1,
 
-            overflow:
-                TextOverflow.ellipsis,
+            overflow: TextOverflow.ellipsis,
 
-            style: theme
-                .textTheme
-                .titleLarge
-                ?.copyWith(
-              fontWeight:
-                  FontWeight.bold,
+            style: theme.textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.bold,
             ),
           ),
         ],

@@ -36,11 +36,7 @@ class MetricCard extends StatelessWidget {
                   color: color.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Icon(
-                  icon,
-                  color: color,
-                  size: 22,
-                ),
+                child: Icon(icon, color: color, size: 22),
               ),
               const Spacer(),
               Icon(
@@ -57,9 +53,9 @@ class MetricCard extends StatelessWidget {
             title,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.white70,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium?.copyWith(color: Colors.white70),
           ),
 
           const SizedBox(height: 6),
@@ -69,18 +65,18 @@ class MetricCard extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
 
           if (subtitle != null) ...[
             const SizedBox(height: 6),
             Text(
               subtitle!,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Colors.white54,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: Colors.white54),
             ),
           ],
         ],
