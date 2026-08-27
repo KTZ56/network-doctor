@@ -59,12 +59,12 @@ jobs:
       - name: Install Inno Setup
         shell: powershell
         run: |
-          choco install innosetup --no-progress -y
+          winget install --id JRSoftware.InnoSetup --exact --silent --accept-package-agreements --accept-source-agreements
 
       - name: Build Windows installer
         shell: powershell
         run: |
-          $iscc = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
 
           if (-not (Test-Path $iscc)) {
               Write-Error "Inno Setup compiler was not found."
@@ -73,7 +73,12 @@ jobs:
 
           & $iscc "installer\NetworkDoctor.iss"
 
-      - name: Verify installer
+          if ($LASTEXITCODE -ne 0) {
+              Write-Error "Inno Setup compilation failed."
+              exit $LASTEXITCODE
+          }
+
+      - name: Verify Windows installer
         shell: powershell
         run: |
           $installer = "installer\output\Network Doctor Setup.exe"
@@ -86,12 +91,6 @@ jobs:
           Write-Host "Installer created successfully:"
           Write-Host $installer
 
-      - name: Upload Windows installer
-        uses: actions/upload-artifact@v4
-        with:
-          name: network-doctor-installer
-          path: installer/output/Network Doctor Setup.exe
-
       - name: Create ZIP package
         shell: powershell
         run: |
@@ -100,8 +99,20 @@ jobs:
             -DestinationPath "network-doctor-windows.zip" `
             -Force
 
+      - name: Upload Windows build
+        uses: actions/upload-artifact@v4
+        with:
+          name: network-doctor-windows
+          path: build/windows/x64/runner/Release/
+
       - name: Upload Windows ZIP
         uses: actions/upload-artifact@v4
         with:
           name: network-doctor-windows-zip
           path: network-doctor-windows.zip
+
+      - name: Upload Windows installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: network-doctor-installer
+          path: installer/output/Network Doctor Setup.exe
